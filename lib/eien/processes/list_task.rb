@@ -29,19 +29,13 @@ module Eien
           processes.map do |process|
             [
               process.metadata.name,
-              process.spec.enabled,
+              summarize_enabled(process.spec.enabled),
               process.spec.image,
               process.spec.replicas,
               summarize_command(process.spec.command),
-              summarize_ports(process.spec.ports),
+              summarize_ports(process.spec.ports.to_h),
               time_ago_in_words(Time.parse(process.metadata.creationTimestamp), include_seconds: true)
-            ].map do |value|
-              if process.spec.enabled
-                value.to_s
-              else
-                ColorizedString.new(value.to_s).light_black
-              end
-            end
+            ]
           end
         )
 
@@ -51,14 +45,26 @@ module Eien
 
       private
 
+      def summarize_enabled(enabled)
+        ColorizedString.new(enabled.to_s).public_send(enabled ? :light_green : :light_red)
+      end
+
       def summarize_command(command)
-        command&.join(" ") || "<none>"
+        command&.join(" ") || none_string
       end
 
       def summarize_ports(ports)
-        ports.map do |port|
-          "#{port.containerPort}.#{port.name}"
-        end.join(", ")
+        if ports.empty?
+          none_string
+        else
+          ports.map do |name, port|
+            "#{port}/#{name}"
+          end.join(" ")
+        end
+      end
+
+      def none_string
+        ColorizedString.new("<none>").light_black
       end
     end
   end
