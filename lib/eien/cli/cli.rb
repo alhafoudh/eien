@@ -23,6 +23,9 @@ module Eien
       rescue ::Eien::UserInputError => e
         warn(colorize_error(e.message))
         exit(1)
+      rescue Krane::KubeclientBuilder::ContextMissingError => e
+        warn(colorize_error(e.message))
+        exit(1)
       end
 
       def require_context!(context)
