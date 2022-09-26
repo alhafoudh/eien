@@ -6,6 +6,7 @@ require "krane/formatted_logger"
 
 require "eien/version"
 require "eien/oj"
+require "eien/config"
 require "eien/task_config"
 require "eien/kubeclient_builder"
 require "eien/errors"
@@ -24,6 +25,10 @@ module Eien
     File.join(root, "crds")
   end
 
+  def self.config
+    @config ||= Config.build
+  end
+
   def self.prepare_krane_options(krane_options)
     krane_options
       .each_with_object(HashWithIndifferentAccess.new) do |(key, option), options|
@@ -32,20 +37,11 @@ module Eien
   end
 
   def self.context_or_default(context)
-    context.nil? ? current_context : context
+    context.nil? ? config.context : context
   end
 
-  def self.current_context
-    config = TaskConfig.new(nil, nil)
-    builder = config.kubeclient_builder
-    builder.validate_config_files!
-    kubeconfigs = builder.kubeconfig_files.map do |kubeconfig_file|
-      Kubeclient::Config.read(kubeconfig_file)
-    end
-
-    return nil if kubeconfigs.empty?
-
-    kubeconfigs.first.instance_variable_get(:@kcfg)["current-context"]
+  def self.app_or_default(app)
+    app.nil? ? config.app : app
   end
 
   def self.build_eien_kubeclient(context)

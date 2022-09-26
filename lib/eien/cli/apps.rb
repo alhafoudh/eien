@@ -5,6 +5,7 @@ require "thor"
 
 require "eien/apps/list_task"
 require "eien/apps/create_task"
+require "eien/apps/select_task"
 
 module Eien
   module CLI
@@ -14,7 +15,11 @@ module Eien
 
       def list
         rescue_and_exit do
-          ::Eien::Apps::ListTask.new(::Eien.context_or_default(options[:context])).run!
+          context = ::Eien.context_or_default(options[:context])
+
+          require_context!(context)
+
+          ::Eien::Apps::ListTask.new(context).run!
         end
       end
 
@@ -24,10 +29,29 @@ module Eien
 
       def create(name)
         rescue_and_exit do
+          context = ::Eien.context_or_default(options[:context])
+
+          require_context!(context)
+
           ::Eien::Apps::CreateTask.new(
+            context,
             name,
-            options[:namespace] || name,
-            ::Eien.context_or_default(options[:context])
+            options[:namespace] || name
+          ).run!
+        end
+      end
+
+      desc "select APP", "selects app"
+
+      def select(app)
+        rescue_and_exit do
+          context = ::Eien.context_or_default(options[:context])
+
+          require_context!(context)
+
+          ::Eien::Apps::SelectTask.new(
+            context,
+            app
           ).run!
         end
       end

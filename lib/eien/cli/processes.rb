@@ -9,25 +9,39 @@ require "eien/processes/update_task"
 module Eien
   module CLI
     class Processes < CLI
-      desc "list APP", "lists processes"
+      desc "list", "lists processes"
       option :context, aliases: %i[c]
+      option :app, aliases: %i[a]
 
-      def list(app)
+      def list
         rescue_and_exit do
+          context = ::Eien.context_or_default(options[:context])
+          app = ::Eien.app_or_default(options[:app])
+
+          require_context!(context)
+          require_app!(app)
+
           ::Eien::Processes::ListTask.new(
-            ::Eien.context_or_default(options[:context]),
+            context,
             app
           ).run!
         end
       end
 
-      desc "enable APP PROCESS", "enables process"
+      desc "enable PROCESS", "enables process"
       option :context, aliases: %i[c]
+      option :app, aliases: %i[a]
 
-      def enable(app, process)
+      def enable(process)
         rescue_and_exit do
+          context = ::Eien.context_or_default(options[:context])
+          app = ::Eien.app_or_default(options[:app])
+
+          require_context!(context)
+          require_app!(app)
+
           ::Eien::Processes::UpdateTask.new(
-            ::Eien.context_or_default(options[:context]),
+            context,
             app,
             process,
             enabled: true
@@ -35,13 +49,20 @@ module Eien
         end
       end
 
-      desc "disable APP PROCESS", "disables process"
+      desc "disable PROCESS", "disables process"
       option :context, aliases: %i[c]
+      option :app, aliases: %i[a]
 
-      def disable(app, process)
+      def disable(process)
         rescue_and_exit do
+          context = ::Eien.context_or_default(options[:context])
+          app = ::Eien.app_or_default(options[:app])
+
+          require_context!(context)
+          require_app!(app)
+
           ::Eien::Processes::UpdateTask.new(
-            ::Eien.context_or_default(options[:context]),
+            context,
             app,
             process,
             enabled: false

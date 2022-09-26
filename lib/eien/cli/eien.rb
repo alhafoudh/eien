@@ -5,6 +5,7 @@ require "tty-table"
 require "colorized_string"
 require "action_view"
 require "action_view/helpers"
+require "irb"
 
 require "eien"
 require "eien/init_task"
@@ -18,13 +19,18 @@ module Eien
     class Eien < CLI
       package_name "Eien"
 
-      desc "init", "initialize Eien dependencies inside cluster"
-      option :context, aliases: %i[c]
+      desc "init CONTEXT", "initialize Eien dependencies inside cluster context"
 
-      def init
+      def init(context)
         rescue_and_exit do
-          InitTask.new(::Eien.context_or_default(options[:context])).run!
+          InitTask.new(context).run!
         end
+      end
+
+      desc "console", "start interactive console"
+
+      def console
+        binding.irb
       end
 
       desc "apps", "manage apps"

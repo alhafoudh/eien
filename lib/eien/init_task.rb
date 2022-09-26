@@ -16,6 +16,9 @@ module Eien
           selector: "owner=#{Eien::CRD_OWNER_SELECTOR_VALUE}"
         )
       )
+
+      Eien.config.context = context
+      Eien.config.save!
     end
   end
 end

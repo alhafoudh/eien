@@ -7,7 +7,7 @@ module Eien
 
       attr_reader :name, :spec_namespace
 
-      def initialize(name, namespace, context)
+      def initialize(context, name, namespace)
         @name = name
         @spec_namespace = namespace
         super(context, nil)

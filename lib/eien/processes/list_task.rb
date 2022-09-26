@@ -8,13 +8,14 @@ module Eien
       attr_reader :app
 
       def initialize(context, app)
-        @app = Eien.app_from_name(context, app)
+        @app = app
         super(context)
       end
 
       def run!
+        the_app = Eien.app_from_name(context, app)
         client = kubeclient_builder.build_eien_kubeclient(context)
-        processes = client.get_processes(namespace: app.spec.namespace)
+        processes = client.get_processes(namespace: the_app.spec.namespace)
         table = TTY::Table.new(
           [
             ColorizedString.new("NAME").yellow,
