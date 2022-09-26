@@ -12,6 +12,10 @@ require "eien"
 module Eien
   module CLI
     class CLI < Thor
+      def self.exit_on_failure?
+        true
+      end
+
       private
 
       def rescue_and_exit
