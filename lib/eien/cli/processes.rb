@@ -4,7 +4,7 @@ require "eien"
 require "thor"
 
 require "eien/processes/list_task"
-require "eien/processes/set_enable_task"
+require "eien/processes/update_task"
 
 module Eien
   module CLI
@@ -26,11 +26,11 @@ module Eien
 
       def enable(app, process)
         rescue_and_exit do
-          ::Eien::Processes::SetEnableTask.new(
+          ::Eien::Processes::UpdateTask.new(
             ::Eien.context_or_default(options[:context]),
             app,
             process,
-            true
+            enabled: true
           ).run!
         end
       end
@@ -40,11 +40,11 @@ module Eien
 
       def disable(app, process)
         rescue_and_exit do
-          ::Eien::Processes::SetEnableTask.new(
+          ::Eien::Processes::UpdateTask.new(
             ::Eien.context_or_default(options[:context]),
             app,
             process,
-            false
+            enabled: false
           ).run!
         end
       end

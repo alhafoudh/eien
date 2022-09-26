@@ -2,20 +2,20 @@
 
 module Eien
   module Processes
-    class SetEnableTask < Task
-      attr_reader :app, :process, :value
+    class UpdateTask < Task
+      attr_reader :app, :process, :attributes
 
-      def initialize(context, app, process, value)
+      def initialize(context, app, process, **attributes)
         @app = Eien.app_from_name(context, app)
         @process = process
-        @value = value
+        @attributes = attributes
         super(context)
       end
 
       def run!
         client = kubeclient_builder.build_eien_kubeclient(context)
         the_process = client.get_process(process, app.spec.namespace)
-        the_process.spec.enabled = value
+        the_process.spec = (the_process.spec&.to_h || {}).merge(attributes)
 
         client.update_process(the_process)
       end
