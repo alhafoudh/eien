@@ -5,6 +5,7 @@ require "tty-table"
 require "colorized_string"
 require "action_view"
 require "action_view/helpers"
+require "tty-prompt"
 
 require "eien"
 
@@ -47,6 +48,17 @@ module Eien
 
       def colorize_command(command)
         ColorizedString.new(command).yellow
+      end
+
+      def confirm!(message, value)
+        instructions = "To confirm, please type '#{value}'"
+        prompt = TTY::Prompt.new
+        result = prompt.ask("#{message} #{instructions}:") do |question|
+          question.required(true)
+          question.validate(/\A#{value}\z/, "#{instructions}.")
+        end
+
+        result == value
       end
     end
   end

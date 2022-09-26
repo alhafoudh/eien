@@ -6,6 +6,7 @@ require "thor"
 require "eien/apps/list_task"
 require "eien/apps/create_task"
 require "eien/apps/select_task"
+require "eien/apps/delete_task"
 
 module Eien
   module CLI
@@ -53,6 +54,23 @@ module Eien
             context,
             app
           ).run!
+        end
+      end
+
+      desc "delete APP", "deletes app"
+
+      def delete(app)
+        rescue_and_exit do
+          context = ::Eien.context_or_default(options[:context])
+
+          require_context!(context)
+
+          if confirm!("You are about to delete #{app} app.", app)
+            ::Eien::Apps::DeleteTask.new(
+              context,
+              app
+            ).run!
+          end
         end
       end
     end

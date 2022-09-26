@@ -50,5 +50,6 @@ Gem::Specification.new do |spec|
 
   # Utilities
   spec.add_dependency "colorize", "~> 0.8.0"
+  spec.add_dependency "tty-prompt", "~> 0.23.1"
   spec.add_dependency "tty-table", "~> 0.12.0"
 end
