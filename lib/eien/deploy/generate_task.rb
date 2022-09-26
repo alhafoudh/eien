@@ -110,7 +110,7 @@ module Eien
               "#{::Eien::LABEL_PREFIX}/app": app_name,
               "#{::Eien::LABEL_PREFIX}/process": process_name
             },
-            type: "NodePort",
+            type: "LoadBalancer",
             ports: process.spec.ports.to_h.map do |name, port|
               {
                 name: name.to_s,
