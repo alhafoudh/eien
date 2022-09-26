@@ -24,10 +24,10 @@ module Eien
             app
           ).run!
           puts resources
-                 .map(&:to_h)
-                 .map(&:deep_stringify_keys)
-                 .map(&:to_yaml)
-                 .join("\n")
+            .map(&:to_h)
+            .map(&:deep_stringify_keys)
+            .map(&:to_yaml)
+            .join("\n")
         end
       end
 
