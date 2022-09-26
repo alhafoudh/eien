@@ -4,6 +4,7 @@ require "eien/apps/list_task"
 require "eien/apps/create_task"
 require "eien/apps/select_task"
 require "eien/apps/delete_task"
+require "eien/apps/status_task"
 
 module Eien
   module CLI
@@ -68,6 +69,24 @@ module Eien
               app
             ).run!
           end
+        end
+      end
+
+      desc "status", "shows app status"
+      option :app, aliases: %i[a]
+
+      def status
+        rescue_and_exit do
+          context = ::Eien.context_or_default(options[:context])
+          app = ::Eien.app_or_default(options[:app])
+
+          require_context!(context)
+          require_context!(app)
+
+          ::Eien::Apps::StatusTask.new(
+            context,
+            app
+          ).run!
         end
       end
     end
