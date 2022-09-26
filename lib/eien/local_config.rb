@@ -3,7 +3,7 @@
 require "fileutils"
 
 module Eien
-  class Config
+  class LocalConfig
     attr_accessor :context, :app
 
     def self.build

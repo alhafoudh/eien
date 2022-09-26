@@ -6,7 +6,7 @@ require "krane/formatted_logger"
 
 require "eien/version"
 require "eien/oj"
-require "eien/config"
+require "eien/local_config"
 require "eien/task_config"
 require "eien/kubeclient_builder"
 require "eien/errors"
@@ -27,7 +27,7 @@ module Eien
   end
 
   def self.config
-    @config ||= Config.build
+    @config ||= LocalConfig.build
   end
 
   def self.prepare_krane_options(krane_options)
