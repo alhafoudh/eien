@@ -13,18 +13,29 @@ module Eien
       def run!
         the_app = Eien.app_from_name(context, app)
         client = kubeclient_builder.build_eien_kubeclient(context)
+        v1_client = kubeclient_builder.build_v1_kubeclient(context)
         target_namespace = the_app.spec.namespace
         app_name = the_app.metadata.name
 
         processes = client.get_processes(namespace: target_namespace)
 
-        # default_secret = get_secret('default')
+        config = begin
+          v1_client.get_config_map(::Eien.config_map_name("default"), target_namespace)
+        rescue Kubeclient::ResourceNotFoundError
+          Kubeclient::Resource.new(data: {})
+        end
+        secret = begin
+          v1_client.get_secret(::Eien.secret_name("default"), target_namespace)
+        rescue Kubeclient::ResourceNotFoundError
+          Kubeclient::Resource.new(data: {})
+        end
+
         processes.each_with_object([]) do |process, resources|
           next unless process.spec.enabled
 
           process_name = process.metadata.name
 
-          resources << generate_deployment(app_name, process, process_name, target_namespace)
+          resources << generate_deployment(app_name, process, process_name, target_namespace, config, secret)
 
           next unless process.spec.ports.to_h.any?
 
@@ -34,7 +45,7 @@ module Eien
 
       private
 
-      def generate_deployment(app_name, process, process_name, target_namespace)
+      def generate_deployment(app_name, process, process_name, target_namespace, config_map, secret)
         Kubeclient::Resource.new(
           apiVersion: "apps/v1",
           kind: "Deployment",
@@ -58,8 +69,9 @@ module Eien
               metadata: {
                 labels: {
                   "#{::Eien::LABEL_PREFIX}/app": app_name,
-                  "#{::Eien::LABEL_PREFIX}/process": process_name
-                  # "#{::Eien::LABEL_PREFIX}/secretsHash": Digest::SHA1.hexdigest(default_secret.to_h.to_yaml)
+                  "#{::Eien::LABEL_PREFIX}/process": process_name,
+                  "#{::Eien::LABEL_PREFIX}/secretHash": Digest::SHA1.hexdigest(secret.to_h.to_yaml),
+                  "#{::Eien::LABEL_PREFIX}/configMapHash": Digest::SHA1.hexdigest(config_map.to_h.to_yaml)
                 }
               },
               spec: {
@@ -73,18 +85,8 @@ module Eien
                         name: name.to_s,
                         containerPort: port.to_i
                       }
-                    end
-                    # env: default_secret.data.to_h.map do |key, value|
-                    #   {
-                    #     name: key.to_s,
-                    #     valueFrom: {
-                    #       secretKeyRef: {
-                    #         name: default_secret.metadata.name,
-                    #         key: key.to_s,
-                    #       }
-                    #     }
-                    #   }
-                    # end,
+                    end,
+                    env: env_from_config_map(config_map).merge(env_from_secret(secret)).values
                   }.compact
                 ]
               }
@@ -120,6 +122,34 @@ module Eien
             end
           }
         )
+      end
+
+      def env_from_config_map(config_map)
+        config_map.data.to_h.keys.each_with_object({}) do |key, env|
+          env[key] = {
+            name: key.to_s,
+            valueFrom: {
+              configMapKeyRef: {
+                name: config_map.metadata.name,
+                key: key.to_s
+              }
+            }
+          }
+        end
+      end
+
+      def env_from_secret(secret)
+        secret.data.to_h.keys.each_with_object({}) do |key, env|
+          env[key] = {
+            name: key.to_s,
+            valueFrom: {
+              secretKeyRef: {
+                name: secret.metadata.name,
+                key: key.to_s,
+              }
+            }
+          }
+        end
       end
     end
   end

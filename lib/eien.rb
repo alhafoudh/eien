@@ -60,4 +60,8 @@ module Eien
   def self.secret_name(name)
     "#{name}-secret"
   end
+
+  def self.config_map_name(name)
+    "#{name}-config"
+  end
 end

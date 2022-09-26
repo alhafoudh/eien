@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Eien
-  module Config
+  module Secrets
     class UpdateTask < Task
       attr_reader :app, :name, :key_pairs
 
@@ -17,37 +17,41 @@ module Eien
         client = kubeclient_builder.build_v1_kubeclient(context)
 
         app_name = the_app.metadata.name
-        config_map_name = ::Eien.config_map_name(name)
+        secret_name = ::Eien.secret_name(name)
         target_namespace = the_app.spec.namespace
 
-        config_map = begin
-          client.get_config_map(config_map_name, target_namespace)
+        secret = begin
+          client.get_secret(secret_name, target_namespace)
         rescue Kubeclient::ResourceNotFoundError
-          new_config_map = Kubeclient::Resource.new(
+          new_secret = Kubeclient::Resource.new(
             apiVersion: "v1",
-            kind: "config_map",
+            kind: "Secret",
             metadata: {
-              name: config_map_name,
+              name: secret_name,
               namespace: target_namespace,
               labels: {
                 "#{::Eien::LABEL_PREFIX}/app": app_name
               }
             },
+            type: "Opaque",
             data: {
             }
           )
-          client.create_config_map(new_config_map)
+          client.create_secret(new_secret)
         end
 
-        config_map.data = prepare_key_pairs(config_map)
-        client.update_config_map(config_map)
+        secret.data = prepare_key_pairs(secret)
+        client.update_secret(secret)
       end
 
       private
 
-      def prepare_key_pairs(config_map)
-        current_key_pairs = (config_map.data.to_h || {}).stringify_keys
-        current_key_pairs.merge(key_pairs).compact
+      def prepare_key_pairs(secret)
+        current_key_pairs = (secret.data.to_h || {}).stringify_keys
+        encoded_key_pairs = key_pairs.transform_values do |value|
+          value.nil? ? value : Base64.strict_encode64(value)
+        end
+        current_key_pairs.merge(encoded_key_pairs).compact
       end
     end
   end
