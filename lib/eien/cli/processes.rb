@@ -8,6 +8,9 @@ require "eien/processes/delete_task"
 module Eien
   module CLI
     class Processes < CLI
+      class_option :context, aliases: %i[c]
+      class_option :app, aliases: %i[a]
+
       def self.process_options
         option :enabled, type: :boolean
         option :image
@@ -18,8 +21,6 @@ module Eien
       end
 
       desc "list", "lists processes"
-      option :context, aliases: %i[c]
-      option :app, aliases: %i[a]
 
       def list
         rescue_and_exit do
@@ -37,8 +38,6 @@ module Eien
       end
 
       desc "enable PROCESS", "enables process"
-      option :context, aliases: %i[c]
-      option :app, aliases: %i[a]
 
       def enable(process)
         rescue_and_exit do
@@ -58,8 +57,6 @@ module Eien
       end
 
       desc "disable PROCESS", "disables process"
-      option :context, aliases: %i[c]
-      option :app, aliases: %i[a]
 
       def disable(process)
         rescue_and_exit do
@@ -79,8 +76,6 @@ module Eien
       end
 
       desc "create NAME", "creates process"
-      option :context, aliases: %i[c]
-      option :app, aliases: %i[a]
 
       process_options
 
@@ -104,8 +99,6 @@ module Eien
       end
 
       desc "update NAME", "updates process"
-      option :context, aliases: %i[c]
-      option :app, aliases: %i[a]
 
       process_options
 
@@ -130,8 +123,6 @@ module Eien
       end
 
       desc "delete NAME", "deletes process"
-      option :context, aliases: %i[c]
-      option :app, aliases: %i[a]
 
       def delete(name)
         rescue_and_exit do

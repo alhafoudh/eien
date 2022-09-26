@@ -8,8 +8,9 @@ require "eien/apps/delete_task"
 module Eien
   module CLI
     class Apps < CLI
+      class_option :context, aliases: %i[c]
+
       desc "list", "lists apps"
-      option :context, aliases: %i[c]
 
       def list
         rescue_and_exit do
@@ -22,7 +23,6 @@ module Eien
       end
 
       desc "create NAME", "creates app"
-      option :context, aliases: %i[c]
       option :namespace, aliases: %i[n]
 
       def create(name)

@@ -6,9 +6,10 @@ require "eien/deploy/apply_task"
 module Eien
   module CLI
     class Deploy < CLI
+      class_option :context, aliases: %i[c]
+      class_option :app, aliases: %i[a]
+
       desc "generate", "generates app resources and prints them to terimal"
-      option :context, aliases: %i[c]
-      option :app, aliases: %i[a]
 
       def generate
         rescue_and_exit do
@@ -31,8 +32,6 @@ module Eien
       end
 
       desc "apply", "deploys app resources to cluster"
-      option :context, aliases: %i[c]
-      option :app, aliases: %i[a]
 
       def apply
         rescue_and_exit do

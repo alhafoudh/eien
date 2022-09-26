@@ -7,10 +7,11 @@ require "eien/config/export_task"
 module Eien
   module CLI
     class Config < CLI
+      class_option :context, aliases: %i[c]
+      class_option :app, aliases: %i[a]
+      class_option :name, aliases: %i[n]
+
       desc "list", "lists config values"
-      option :context, aliases: %i[c]
-      option :app, aliases: %i[a]
-      option :name, aliases: %i[n]
 
       def list
         rescue_and_exit do
@@ -29,9 +30,6 @@ module Eien
       end
 
       desc "export", "exports config values"
-      option :context, aliases: %i[c]
-      option :app, aliases: %i[a]
-      option :name, aliases: %i[n]
 
       def export
         rescue_and_exit do
@@ -50,9 +48,6 @@ module Eien
       end
 
       desc "set KEY=VALUE [...]", "sets config values"
-      option :context, aliases: %i[c]
-      option :app, aliases: %i[a]
-      option :name, aliases: %i[n]
 
       def set(*raw_key_pairs)
         rescue_and_exit do
@@ -77,9 +72,6 @@ module Eien
       end
 
       desc "unset KEY [...]", "unsets config values"
-      option :context, aliases: %i[c]
-      option :app, aliases: %i[a]
-      option :name, aliases: %i[n]
 
       def unset(*keys)
         rescue_and_exit do
