@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "eien"
-require "thor"
-
 require "eien/processes/list_task"
 require "eien/processes/update_task"
 require "eien/processes/create_task"

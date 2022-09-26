@@ -13,6 +13,7 @@ require "eien/init_task"
 require "eien/cli/cli"
 require "eien/cli/apps"
 require "eien/cli/processes"
+require "eien/cli/deploy"
 
 module Eien
   module CLI
@@ -38,6 +39,9 @@ module Eien
 
       desc "ps", "manage processes"
       subcommand :ps, Processes
+
+      desc "deploy", "manage deployment"
+      subcommand :deploy, Deploy
     end
   end
 end
