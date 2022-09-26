@@ -56,4 +56,8 @@ module Eien
   rescue Kubeclient::ResourceNotFoundError
     raise UserInputError, "App #{name} does not exist."
   end
+
+  def self.secret_name(name)
+    "#{name}-secret"
+  end
 end
