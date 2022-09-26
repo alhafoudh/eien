@@ -40,6 +40,7 @@ Gem::Specification.new do |spec|
   # Common
   spec.add_dependency "actionview", "~> 7.0"
   spec.add_dependency "activesupport", "~> 7.0"
+  spec.add_dependency "httplog", "~> 1.6"
   spec.add_dependency "oj", "~> 3.13"
   spec.add_dependency "thor", "~> 1.2"
 

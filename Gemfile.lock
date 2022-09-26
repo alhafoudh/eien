@@ -5,6 +5,7 @@ PATH
       actionview (~> 7.0)
       activesupport (~> 7.0)
       colorize (~> 0.8.0)
+      httplog (~> 1.6)
       krane (~> 2.4)
       kubeclient (~> 4.10)
       oj (~> 3.13)
@@ -189,7 +190,6 @@ PLATFORMS
 DEPENDENCIES
   bundler
   eien!
-  httplog (~> 1.6)
   pry (~> 0.14.1)
   rake (~> 13.0)
   rspec (~> 3.0)

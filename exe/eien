@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require "httplog" unless ENV["DEBUG"].nil?
+
 require "eien/cli/eien"
 
 Eien::CLI::Eien.start(ARGV)
