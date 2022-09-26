@@ -14,3 +14,12 @@ Layout/LineLength:
 
 Style/Documentation:
   Enabled: false
+
+Layout/CaseIndentation:
+  Enabled: false
+
+Layout/EndAlignment:
+  Enabled: false
+
+Layout/FirstArrayElementIndentation:
+  Enabled: false
