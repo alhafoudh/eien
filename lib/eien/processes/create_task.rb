@@ -2,9 +2,7 @@
 
 module Eien
   module Processes
-    class UpdateTask < Task
-      ALLOWED_ATTRIBUTES = %i[enabled image command replicas ports].freeze
-
+    class CreateTask < Task
       attr_reader :app, :name, :attributes
 
       def initialize(context, app, name, **attributes)
@@ -16,10 +14,18 @@ module Eien
 
       def run!
         client = kubeclient_builder.build_eien_kubeclient(context)
-        the_process = client.get_process(name, app.spec.namespace)
-        the_process.spec = (the_process.spec&.to_h || {}).merge(attributes)
 
-        client.update_process(the_process)
+        process = Kubeclient::Resource.new(
+          metadata: {
+            name: name,
+            namespace: app.spec.namespace,
+            labels: {
+              "#{::Eien::LABEL_PREFIX}/app": app.metadata.name
+            }
+          },
+          spec: attributes
+        )
+        client.create_process(process)
       end
     end
   end

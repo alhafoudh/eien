@@ -28,14 +28,8 @@ spec:
                 replicas:
                   type: integer
                 ports:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                      containerPort:
-                        type: integer
+                  x-kubernetes-preserve-unknown-fields: true
+                  type: object
   scope: Namespaced
   names:
     plural: processes

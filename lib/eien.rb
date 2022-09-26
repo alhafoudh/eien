@@ -13,6 +13,7 @@ require "eien/errors"
 require "eien/task"
 
 module Eien
+  LABEL_PREFIX = "eien.freevision.sk"
   CRD_OWNER_SELECTOR_VALUE = "eien.freevision.sk"
 
   class Error < StandardError; end
