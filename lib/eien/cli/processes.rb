@@ -21,6 +21,7 @@ module Eien
       end
 
       desc "list", "lists processes"
+      map ls: :list
 
       def list
         rescue_and_exit do

@@ -12,6 +12,7 @@ module Eien
       class_option :context, aliases: %i[c]
 
       desc "list", "lists apps"
+      map ls: :list
 
       def list
         rescue_and_exit do

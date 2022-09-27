@@ -12,6 +12,7 @@ module Eien
       class_option :name, aliases: %i[n]
 
       desc "list", "lists config values"
+      map ls: :list
 
       def list
         rescue_and_exit do
