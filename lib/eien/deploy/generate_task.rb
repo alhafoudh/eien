@@ -145,7 +145,7 @@ module Eien
             valueFrom: {
               secretKeyRef: {
                 name: secret.metadata.name,
-                key: key.to_s,
+                key: key.to_s
               }
             }
           }
