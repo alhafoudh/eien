@@ -18,13 +18,13 @@ module Eien
         processes = client.get_processes(namespace: the_app.spec.namespace)
         table = TTY::Table.new(
           [
-            ColorizedString.new("NAME").yellow,
-            ColorizedString.new("ENABLED").yellow,
-            ColorizedString.new("IMAGE").yellow,
-            ColorizedString.new("REPLICAS").yellow,
-            ColorizedString.new("COMMAND").yellow,
-            ColorizedString.new("PORTS").yellow,
-            ColorizedString.new("AGE").yellow
+            colorize("NAME").yellow,
+            colorize("ENABLED").yellow,
+            colorize("IMAGE").yellow,
+            colorize("REPLICAS").yellow,
+            colorize("COMMAND").yellow,
+            colorize("PORTS").yellow,
+            colorize("AGE").yellow
           ],
           processes.map do |process|
             [
@@ -45,10 +45,6 @@ module Eien
 
       private
 
-      def summarize_enabled(enabled)
-        ColorizedString.new(enabled.to_s).public_send(enabled ? :light_green : :light_red)
-      end
-
       def summarize_command(command)
         command&.join(" ") || none_string
       end
@@ -64,7 +60,7 @@ module Eien
       end
 
       def none_string
-        ColorizedString.new("<none>").light_black
+        colorize("<none>").light_black
       end
     end
   end

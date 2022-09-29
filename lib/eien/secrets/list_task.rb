@@ -26,8 +26,8 @@ module Eien
         key_pairs = secret.data.to_h || {}
         table = TTY::Table.new(
           [
-            ColorizedString.new("KEY").yellow,
-            ColorizedString.new("VALUE").yellow
+            colorize("KEY").yellow,
+            colorize("VALUE").yellow
           ],
           key_pairs.map do |key, value|
             [

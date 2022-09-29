@@ -10,9 +10,9 @@ module Eien
         apps = client.get_apps
         table = TTY::Table.new(
           [
-            ColorizedString.new("NAME").yellow,
-            ColorizedString.new("NAMESPACE").yellow,
-            ColorizedString.new("AGE").yellow
+            colorize("NAME").yellow,
+            colorize("NAMESPACE").yellow,
+            colorize("AGE").yellow
           ],
           apps.map do |app|
             [

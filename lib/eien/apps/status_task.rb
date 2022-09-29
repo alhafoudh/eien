@@ -41,14 +41,14 @@ module Eien
       private
 
       def render_status(app, deployments, processes, services)
-        puts ColorizedString.new(app.metadata.name).yellow
+        puts colorize(app.metadata.name).yellow
 
         processes.map do |process|
           deployment = deployments[process.metadata.name]
           service = services[process.metadata.name]
 
           puts
-          puts ColorizedString.new(process.metadata.name).light_cyan
+          puts colorize(process.metadata.name).light_cyan
 
           unless deployment
             warn!("Process #{process.metadata.name} is not deployed yet.")

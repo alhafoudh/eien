@@ -17,12 +17,20 @@ module Eien
 
     private
 
+    def summarize_enabled(enabled)
+      colorize(enabled.to_s).public_send(enabled ? :light_green : :light_red)
+    end
+
+    def colorize(message)
+      ColorizedString.new(message)
+    end
+
     def warn!(message)
-      puts ColorizedString.new(message).light_yellow
+      puts colorize(message).light_yellow
     end
 
     def error!(message)
-      puts ColorizedString.new(message).light_red
+      puts colorize(message).light_red
     end
   end
 end
