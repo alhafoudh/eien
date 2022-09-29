@@ -88,7 +88,7 @@ module Eien
           require_context!(context)
           require_app!(app)
 
-          attributes = options.slice(*%w[enabled image command replicas ports]).symbolize_keys
+          attributes = options.slice(*::Eien::Processes::UpdateTask::ALLOWED_ATTRIBUTES.map(&:to_s)).symbolize_keys
 
           ::Eien::Processes::CreateTask.new(
             context,
