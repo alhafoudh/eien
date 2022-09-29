@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "thor"
-require "tty-table"
 require "colorized_string"
 require "action_view"
 require "action_view/helpers"
@@ -16,6 +15,7 @@ require "eien/cli/processes"
 require "eien/cli/config"
 require "eien/cli/secrets"
 require "eien/cli/domains"
+require "eien/cli/routes"
 require "eien/cli/deploy"
 
 module Eien
@@ -60,6 +60,9 @@ module Eien
 
       desc "domains", "manage domains"
       subcommand :domains, Domains
+
+      desc "routes", "manage routes"
+      subcommand :routes, Routes
 
       desc "deploy", "manage deployment"
       subcommand :deploy, Deploy

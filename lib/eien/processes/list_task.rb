@@ -58,10 +58,6 @@ module Eien
           end.join(" ")
         end
       end
-
-      def none_string
-        colorize("<none>").light_black
-      end
     end
   end
 end

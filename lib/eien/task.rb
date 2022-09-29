@@ -32,5 +32,9 @@ module Eien
     def error!(message)
       puts colorize(message).light_red
     end
+
+    def none_string
+      colorize("<none>").light_black
+    end
   end
 end
