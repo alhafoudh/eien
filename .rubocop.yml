@@ -3,3 +3,6 @@ inherit_gem:
 
 Style/MethodCallWithArgsParentheses:
    Enabled: false
+
+Style/ClassMethodsDefinitions:
+  Enabled: false
