@@ -30,6 +30,19 @@ spec:
                 ports:
                   x-kubernetes-preserve-unknown-fields: true
                   type: object
+      additionalPrinterColumns:
+        - name: Enabled
+          type: boolean
+          jsonPath: .spec.enabled
+        - name: Image
+          type: string
+          jsonPath: .spec.image
+        - name: Command
+          type: string
+          jsonPath: .spec.command
+        - name: Replicas
+          type: integer
+          jsonPath: .spec.replicas
   scope: Namespaced
   names:
     plural: processes
