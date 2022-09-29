@@ -43,6 +43,9 @@ spec:
         - name: Replicas
           type: integer
           jsonPath: .spec.replicas
+        - name: Ports
+          type: string
+          jsonPath: .spec.ports[*]
   scope: Namespaced
   names:
     plural: processes
