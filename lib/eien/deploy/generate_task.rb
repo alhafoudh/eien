@@ -13,10 +13,25 @@ module Eien
       def run!
         the_app = Eien.app_from_name(context, app)
         client = kubeclient_builder.build_eien_kubeclient(context)
-        v1_client = kubeclient_builder.build_v1_kubeclient(context)
         target_namespace = the_app.spec.namespace
 
+        resources = []
+
         processes = client.get_processes(namespace: target_namespace)
+        routes = client.get_routes(namespace: target_namespace)
+
+        resources += generate_for_processes(processes, the_app)
+        resources += generate_for_routes(routes, the_app)
+
+        resources
+      end
+
+      private
+
+      def generate_for_processes(processes, app)
+        target_namespace = app.spec.namespace
+
+        v1_client = kubeclient_builder.build_v1_kubeclient(context)
 
         config = begin
           v1_client.get_config_map(::Eien.config_map_name("default"), target_namespace)
@@ -32,15 +47,64 @@ module Eien
         processes.each_with_object([]) do |process, resources|
           next unless process.spec.enabled
 
-          resources << generate_deployment(the_app, process, config, secret)
+          resources << generate_deployment(app, process, config, secret)
 
           next unless process.spec.ports.to_h.any?
 
-          resources << generate_service(the_app, process)
+          resources << generate_service(app, process)
         end
       end
 
-      private
+      def generate_for_routes(routes, app)
+        app_name = app.metadata.name
+        target_namespace = app.spec.namespace
+
+        domain_routes = routes.each_with_object({}) do |route, map|
+          next unless route.spec.enabled
+
+          route.spec.domains.map do |domain|
+            map[domain] ||= []
+            map[domain] << route
+          end
+        end
+
+        [
+          Kubeclient::Resource.new(
+            apiVersion: "networking.k8s.io/v1",
+            kind: "Ingress",
+            metadata: {
+              name: app_name,
+              namespace: target_namespace,
+              labels: {
+                "#{::Eien::LABEL_PREFIX}/app": app_name,
+              },
+            },
+            spec: {
+              rules: domain_routes.map do |domain, routes|
+                {
+                  host: domain,
+                  http: {
+                    paths: routes.map do |route|
+                      {
+                        path: route.spec.path,
+                        pathType: "Prefix",
+                        backend: {
+                          service: {
+                            name: route.spec.process,
+                            port: {
+                              name: route.spec.port,
+                            },
+                          },
+                        },
+                      }
+                    end,
+                  },
+                }
+              end,
+            },
+          )
+        ]
+      end
 
       def generate_deployment(app, process, config_map, secret)
         app_name = app.metadata.name
@@ -117,7 +181,7 @@ module Eien
               "#{::Eien::LABEL_PREFIX}/app": app_name,
               "#{::Eien::LABEL_PREFIX}/process": process_name,
             },
-            type: "LoadBalancer",
+            type: "ClusterIP",
             ports: process.spec.ports.to_h.map do |name, port|
               {
                 name: name.to_s,
