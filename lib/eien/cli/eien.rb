@@ -15,6 +15,7 @@ require "eien/cli/apps"
 require "eien/cli/processes"
 require "eien/cli/config"
 require "eien/cli/secrets"
+require "eien/cli/domains"
 require "eien/cli/deploy"
 
 module Eien
@@ -55,6 +56,9 @@ module Eien
 
       desc "secrets", "manage secrets"
       subcommand :secrets, Secrets
+
+      desc "domains", "manage domains"
+      subcommand :domains, Domains
 
       desc "deploy", "manage deployment"
       subcommand :deploy, Deploy
