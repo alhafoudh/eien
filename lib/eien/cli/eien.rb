@@ -22,6 +22,14 @@ module Eien
     class Eien < CLI
       package_name "Eien"
 
+      desc "version", "print Eien version"
+
+      def version
+        rescue_and_exit do
+          puts ::Eien::VERSION
+        end
+      end
+
       desc "init CONTEXT", "initialize Eien dependencies inside cluster context"
 
       def init(context)
