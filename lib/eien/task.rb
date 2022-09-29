@@ -14,5 +14,15 @@ module Eien
     end
 
     def run!; end
+
+    private
+
+    def warn!(message)
+      puts ColorizedString.new(message).light_yellow
+    end
+
+    def error!(message)
+      puts ColorizedString.new(message).light_red
+    end
   end
 end

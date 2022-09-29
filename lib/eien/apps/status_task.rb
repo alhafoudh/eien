@@ -49,8 +49,13 @@ module Eien
 
           puts
           puts ColorizedString.new(process.metadata.name).light_cyan
-          puts
 
+          unless deployment
+            warn!("Process #{process.metadata.name} is not deployed yet.")
+            next
+          end
+
+          puts
           puts TTY::Table.new(
             [
               "  Deployment",
