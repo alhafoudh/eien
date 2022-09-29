@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "krane"
-require "krane/kubeclient_builder"
 
 module Eien
   class KubeclientBuilder < Krane::KubeclientBuilder
