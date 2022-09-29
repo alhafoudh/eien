@@ -3,7 +3,7 @@
 module Eien
   module Processes
     class UpdateTask < Task
-      ALLOWED_ATTRIBUTES = [:enabled, :image, :command, :replicas, :ports].freeze
+      ALLOWED_ATTRIBUTES = [:enabled, :image, :config, :secret, :command, :replicas, :ports].freeze
 
       attr_reader :app, :name, :attributes
 

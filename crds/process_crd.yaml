@@ -21,6 +21,10 @@ spec:
                   type: boolean
                 image:
                   type: string
+                config:
+                  type: string
+                secret:
+                  type: string
                 command:
                   type: array
                   items:

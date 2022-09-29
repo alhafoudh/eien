@@ -14,6 +14,8 @@ module Eien
       def self.process_options
         option(:enabled, type: :boolean)
         option(:image)
+        option(:config)
+        option(:secret)
         option(:command, type: :array)
         option(:replicas, type: :numeric)
         option(:ports, type: :hash)
@@ -89,6 +91,8 @@ module Eien
           require_app!(app)
 
           attributes = options.slice(*::Eien::Processes::UpdateTask::ALLOWED_ATTRIBUTES.map(&:to_s)).symbolize_keys
+          attributes[:config] = "default" unless options[:config]
+          attributes[:secret] = "default" unless options[:secret]
 
           ::Eien::Processes::CreateTask.new(
             context,
@@ -113,6 +117,8 @@ module Eien
 
           attributes = options.slice(*::Eien::Processes::UpdateTask::ALLOWED_ATTRIBUTES.map(&:to_s)).symbolize_keys
           attributes[:ports] = {} if options[:"no-ports"]
+          attributes[:config] = "default" unless options[:config]
+          attributes[:secret] = "default" unless options[:secret]
 
           ::Eien::Processes::UpdateTask.new(
             context,

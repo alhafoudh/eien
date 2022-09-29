@@ -33,18 +33,18 @@ module Eien
 
         v1_client = kubeclient_builder.build_v1_kubeclient(context)
 
-        config = begin
-          v1_client.get_config_map(::Eien.config_map_name("default"), target_namespace)
-        rescue Kubeclient::ResourceNotFoundError
-          Kubeclient::Resource.new(data: {})
-        end
-        secret = begin
-          v1_client.get_secret(::Eien.secret_name("default"), target_namespace)
-        rescue Kubeclient::ResourceNotFoundError
-          Kubeclient::Resource.new(data: {})
-        end
-
         processes.each_with_object([]) do |process, resources|
+          config = begin
+            v1_client.get_config_map(::Eien.config_map_name(process.spec.config), target_namespace)
+          rescue Kubeclient::ResourceNotFoundError
+            Kubeclient::Resource.new(data: {})
+          end
+          secret = begin
+            v1_client.get_secret(::Eien.secret_name(process.spec.secret), target_namespace)
+          rescue Kubeclient::ResourceNotFoundError
+            Kubeclient::Resource.new(data: {})
+          end
+
           next unless process.spec.enabled
 
           resources << generate_deployment(app, process, config, secret)
