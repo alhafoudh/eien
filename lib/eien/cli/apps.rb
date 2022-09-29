@@ -9,7 +9,7 @@ require "eien/apps/status_task"
 module Eien
   module CLI
     class Apps < CLI
-      class_option :context, aliases: %i[c]
+      class_option :context, aliases: [:c]
 
       desc "list", "lists apps"
       map ls: :list
@@ -25,7 +25,7 @@ module Eien
       end
 
       desc "create NAME", "creates app"
-      option :namespace, aliases: %i[n]
+      option :namespace, aliases: [:n]
 
       def create(name)
         rescue_and_exit do
@@ -36,7 +36,7 @@ module Eien
           ::Eien::Apps::CreateTask.new(
             context,
             name,
-            options[:namespace] || name
+            options[:namespace] || name,
           ).run!
         end
       end
@@ -51,7 +51,7 @@ module Eien
 
           ::Eien::Apps::SelectTask.new(
             context,
-            app
+            app,
           ).run!
         end
       end
@@ -67,14 +67,14 @@ module Eien
           if confirm!("You are about to delete #{app} app.", app)
             ::Eien::Apps::DeleteTask.new(
               context,
-              app
+              app,
             ).run!
           end
         end
       end
 
       desc "status", "shows app status"
-      option :app, aliases: %i[a]
+      option :app, aliases: [:a]
 
       def status
         rescue_and_exit do
@@ -86,7 +86,7 @@ module Eien
 
           ::Eien::Apps::StatusTask.new(
             context,
-            app
+            app,
           ).run!
         end
       end

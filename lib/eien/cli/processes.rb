@@ -8,16 +8,16 @@ require "eien/processes/delete_task"
 module Eien
   module CLI
     class Processes < CLI
-      class_option :context, aliases: %i[c]
-      class_option :app, aliases: %i[a]
+      class_option :context, aliases: [:c]
+      class_option :app, aliases: [:a]
 
       def self.process_options
-        option :enabled, type: :boolean
-        option :image
-        option :command, type: :array
-        option :replicas, type: :numeric
-        option :ports, type: :hash
-        option :"no-ports", type: :boolean
+        option(:enabled, type: :boolean)
+        option(:image)
+        option(:command, type: :array)
+        option(:replicas, type: :numeric)
+        option(:ports, type: :hash)
+        option(:"no-ports", type: :boolean)
       end
 
       desc "list", "lists processes"
@@ -33,7 +33,7 @@ module Eien
 
           ::Eien::Processes::ListTask.new(
             context,
-            app
+            app,
           ).run!
         end
       end
@@ -52,7 +52,7 @@ module Eien
             context,
             app,
             process,
-            enabled: true
+            enabled: true,
           ).run!
         end
       end
@@ -71,7 +71,7 @@ module Eien
             context,
             app,
             process,
-            enabled: false
+            enabled: false,
           ).run!
         end
       end
@@ -94,7 +94,7 @@ module Eien
             context,
             app,
             name,
-            **attributes
+            **attributes,
           ).run!
         end
       end
@@ -118,7 +118,7 @@ module Eien
             context,
             app,
             name,
-            **attributes
+            **attributes,
           ).run!
         end
       end
@@ -136,7 +136,7 @@ module Eien
           ::Eien::Processes::DeleteTask.new(
             context,
             app,
-            name
+            name,
           ).run!
         end
       end

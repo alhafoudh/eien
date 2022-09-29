@@ -20,10 +20,10 @@ module Eien
             name: name,
             namespace: app.spec.namespace,
             labels: {
-              "#{::Eien::LABEL_PREFIX}/app": app.metadata.name
-            }
+              "#{::Eien::LABEL_PREFIX}/app": app.metadata.name,
+            },
           },
-          spec: attributes
+          spec: attributes,
         )
         client.create_process(process)
       end

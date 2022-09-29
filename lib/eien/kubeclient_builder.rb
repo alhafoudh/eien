@@ -10,7 +10,7 @@ module Eien
       build_kubeclient(
         api_version: "v1",
         context: context,
-        endpoint_path: "/apis/#{EIEN_ENDPOINT_PATH}"
+        endpoint_path: "/apis/#{EIEN_ENDPOINT_PATH}",
       )
     end
   end

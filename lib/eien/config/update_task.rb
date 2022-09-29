@@ -30,11 +30,11 @@ module Eien
               name: config_map_name,
               namespace: target_namespace,
               labels: {
-                "#{::Eien::LABEL_PREFIX}/app": app_name
-              }
+                "#{::Eien::LABEL_PREFIX}/app": app_name,
+              },
             },
             data: {
-            }
+            },
           )
           client.create_config_map(new_config_map)
         end

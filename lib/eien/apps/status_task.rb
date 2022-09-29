@@ -59,14 +59,14 @@ module Eien
           puts TTY::Table.new(
             [
               "  Deployment",
-              service ? "  Service" : ""
+              service ? "  Service" : "",
             ],
             [
               [
                 ::Eien::Renderers::DeploymentRenderer.new(deployment).render,
-                service ? ::Eien::Renderers::ServiceRenderer.new(service).render : ""
-              ]
-            ]
+                service ? ::Eien::Renderers::ServiceRenderer.new(service).render : "",
+              ],
+            ],
           ).render(:basic, multiline: true, padding: [0, 1])
           puts
         end

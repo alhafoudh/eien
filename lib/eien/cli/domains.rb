@@ -8,11 +8,11 @@ require "eien/domains/delete_task"
 module Eien
   module CLI
     class Domains < CLI
-      class_option :context, aliases: %i[c]
-      class_option :app, aliases: %i[a]
+      class_option :context, aliases: [:c]
+      class_option :app, aliases: [:a]
 
       def self.domain_options
-        option :enabled, type: :boolean
+        option(:enabled, type: :boolean)
       end
 
       desc "list", "lists domains"
@@ -28,7 +28,7 @@ module Eien
 
           ::Eien::Domains::ListTask.new(
             context,
-            app
+            app,
           ).run!
         end
       end
@@ -47,7 +47,7 @@ module Eien
             context,
             app,
             domain,
-            enabled: true
+            enabled: true,
           ).run!
         end
       end
@@ -66,7 +66,7 @@ module Eien
             context,
             app,
             domain,
-            enabled: false
+            enabled: false,
           ).run!
         end
       end
@@ -92,7 +92,7 @@ module Eien
             context,
             app,
             domain,
-            **attributes
+            **attributes,
           ).run!
         end
       end
@@ -133,7 +133,7 @@ module Eien
           ::Eien::Domains::DeleteTask.new(
             context,
             app,
-            domain
+            domain,
           ).run!
         end
       end

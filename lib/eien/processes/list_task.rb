@@ -24,7 +24,7 @@ module Eien
             colorize("REPLICAS").yellow,
             colorize("COMMAND").yellow,
             colorize("PORTS").yellow,
-            colorize("AGE").yellow
+            colorize("AGE").yellow,
           ],
           processes.map do |process|
             [
@@ -34,9 +34,9 @@ module Eien
               process.spec.replicas,
               summarize_command(process.spec.command),
               summarize_ports(process.spec.ports.to_h),
-              time_ago_in_words(Time.parse(process.metadata.creationTimestamp), include_seconds: true)
+              time_ago_in_words(Time.parse(process.metadata.creationTimestamp), include_seconds: true),
             ]
-          end
+          end,
         )
 
         output = table.render(:basic)

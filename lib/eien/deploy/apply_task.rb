@@ -18,7 +18,7 @@ module Eien
 
         resources = ::Eien::Deploy::GenerateTask.new(context, app_name).run!
 
-        temp_file = Tempfile.new(%w[eien_generated_resources .yaml])
+        temp_file = Tempfile.new(["eien_generated_resources", ".yaml"])
         begin
           resources.map do |resource|
             temp_file.write(resource.to_h.deep_stringify_keys.to_yaml)
@@ -36,7 +36,7 @@ module Eien
           Krane::CLI::DeployCommand.from_options(
             the_app.spec.namespace,
             context,
-            deploy_options
+            deploy_options,
           )
         ensure
           temp_file.close

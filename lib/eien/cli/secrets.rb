@@ -7,9 +7,9 @@ require "eien/secrets/export_task"
 module Eien
   module CLI
     class Secrets < CLI
-      class_option :context, aliases: %i[c]
-      class_option :app, aliases: %i[a]
-      class_option :name, aliases: %i[n]
+      class_option :context, aliases: [:c]
+      class_option :app, aliases: [:a]
+      class_option :name, aliases: [:n]
 
       desc "list", "lists secrets"
       map ls: :list
@@ -25,7 +25,7 @@ module Eien
           ::Eien::Secrets::ListTask.new(
             context,
             app,
-            options[:name] || "default"
+            options[:name] || "default",
           ).run!
         end
       end
@@ -43,7 +43,7 @@ module Eien
           ::Eien::Secrets::ExportTask.new(
             context,
             app,
-            options[:name] || "default"
+            options[:name] || "default",
           ).run!
         end
       end
@@ -67,7 +67,7 @@ module Eien
             context,
             app,
             options[:name] || "default",
-            **key_pairs
+            **key_pairs,
           ).run!
         end
       end
@@ -90,7 +90,7 @@ module Eien
             context,
             app,
             options[:name] || "default",
-            **key_pairs
+            **key_pairs,
           ).run!
         end
       end

@@ -24,11 +24,11 @@ module Eien
         client = kubeclient_builder.build_eien_kubeclient(context)
         app_resource = Kubeclient::Resource.new(
           metadata: {
-            name: name
+            name: name,
           },
           spec: {
-            namespace: spec_namespace
-          }
+            namespace: spec_namespace,
+          },
         )
         client.create_app(app_resource)
       end
@@ -45,8 +45,8 @@ module Eien
       def create_namespace!(client)
         namespace_resource = Kubeclient::Resource.new(
           metadata: {
-            name: spec_namespace
-          }
+            name: spec_namespace,
+          },
         )
         client.create_namespace(namespace_resource)
       end

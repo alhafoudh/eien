@@ -29,7 +29,7 @@ module Eien
           ["", ""],
           ["ports", ports_message],
           ["", ""],
-          ["external IP", external_ip_status(service)]
+          ["external IP", external_ip_status(service)],
         ]
         TTY::Table.new(rows).render(:unicode, multiline: true, padding: [0, 1])
       end

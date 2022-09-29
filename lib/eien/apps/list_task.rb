@@ -12,15 +12,15 @@ module Eien
           [
             colorize("NAME").yellow,
             colorize("NAMESPACE").yellow,
-            colorize("AGE").yellow
+            colorize("AGE").yellow,
           ],
           apps.map do |app|
             [
               app.metadata.name,
               app.spec.namespace,
-              time_ago_in_words(Time.parse(app.metadata.creationTimestamp), include_seconds: true)
+              time_ago_in_words(Time.parse(app.metadata.creationTimestamp), include_seconds: true),
             ]
-          end
+          end,
         )
 
         output = table.render(:basic)

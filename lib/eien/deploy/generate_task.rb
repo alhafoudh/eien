@@ -54,16 +54,16 @@ module Eien
             namespace: target_namespace,
             labels: {
               "#{::Eien::LABEL_PREFIX}/app": app_name,
-              "#{::Eien::LABEL_PREFIX}/process": process_name
-            }
+              "#{::Eien::LABEL_PREFIX}/process": process_name,
+            },
           },
           spec: {
             replicas: process.spec.replicas,
             selector: {
               matchLabels: {
                 "#{::Eien::LABEL_PREFIX}/app": app_name,
-                "#{::Eien::LABEL_PREFIX}/process": process_name
-              }
+                "#{::Eien::LABEL_PREFIX}/process": process_name,
+              },
             },
             template: {
               metadata: {
@@ -71,8 +71,8 @@ module Eien
                   "#{::Eien::LABEL_PREFIX}/app": app_name,
                   "#{::Eien::LABEL_PREFIX}/process": process_name,
                   "#{::Eien::LABEL_PREFIX}/secretHash": Digest::SHA1.hexdigest(secret.to_h.to_yaml),
-                  "#{::Eien::LABEL_PREFIX}/configMapHash": Digest::SHA1.hexdigest(config_map.to_h.to_yaml)
-                }
+                  "#{::Eien::LABEL_PREFIX}/configMapHash": Digest::SHA1.hexdigest(config_map.to_h.to_yaml),
+                },
               },
               spec: {
                 containers: [
@@ -83,15 +83,15 @@ module Eien
                     ports: process.spec.ports.to_h.map do |name, port|
                       {
                         name: name.to_s,
-                        containerPort: port.to_i
+                        containerPort: port.to_i,
                       }
                     end,
-                    env: env_from_config_map(config_map).merge(env_from_secret(secret)).values
-                  }.compact
-                ]
-              }
-            }
-          }
+                    env: env_from_config_map(config_map).merge(env_from_secret(secret)).values,
+                  }.compact,
+                ],
+              },
+            },
+          },
         )
       end
 
@@ -104,23 +104,23 @@ module Eien
             namespace: target_namespace,
             labels: {
               "#{::Eien::LABEL_PREFIX}/app": app_name,
-              "#{::Eien::LABEL_PREFIX}/process": process_name
-            }
+              "#{::Eien::LABEL_PREFIX}/process": process_name,
+            },
           },
           spec: {
             selector: {
               "#{::Eien::LABEL_PREFIX}/app": app_name,
-              "#{::Eien::LABEL_PREFIX}/process": process_name
+              "#{::Eien::LABEL_PREFIX}/process": process_name,
             },
             type: "LoadBalancer",
             ports: process.spec.ports.to_h.map do |name, port|
               {
                 name: name.to_s,
                 port: port.to_i,
-                targetPort: port.to_i
+                targetPort: port.to_i,
               }
-            end
-          }
+            end,
+          },
         )
       end
 
@@ -131,9 +131,9 @@ module Eien
             valueFrom: {
               configMapKeyRef: {
                 name: config_map.metadata.name,
-                key: key.to_s
-              }
-            }
+                key: key.to_s,
+              },
+            },
           }
         end
       end
@@ -145,9 +145,9 @@ module Eien
             valueFrom: {
               secretKeyRef: {
                 name: secret.metadata.name,
-                key: key.to_s
-              }
-            }
+                key: key.to_s,
+              },
+            },
           }
         end
       end

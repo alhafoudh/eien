@@ -21,16 +21,16 @@ module Eien
             colorize("DOMAIN").yellow,
             colorize("ENABLED").yellow,
             colorize("NAME").yellow,
-            colorize("AGE").yellow
+            colorize("AGE").yellow,
           ],
           domains.map do |domain|
             [
               domain.metadata.name,
               summarize_enabled(domain.spec.enabled),
               domain.spec.domain,
-              time_ago_in_words(Time.parse(domain.metadata.creationTimestamp), include_seconds: true)
+              time_ago_in_words(Time.parse(domain.metadata.creationTimestamp), include_seconds: true),
             ]
-          end
+          end,
         )
 
         output = table.render(:basic)

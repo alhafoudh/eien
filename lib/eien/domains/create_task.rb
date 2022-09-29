@@ -20,10 +20,10 @@ module Eien
             name: attributes[:name] || name_from_domain,
             namespace: app.spec.namespace,
             labels: {
-              "#{::Eien::LABEL_PREFIX}/app": app.metadata.domain
-            }
+              "#{::Eien::LABEL_PREFIX}/app": app.metadata.domain,
+            },
           },
-          spec: prepare_attributes
+          spec: prepare_attributes,
         )
 
         client.create_domain(domain)

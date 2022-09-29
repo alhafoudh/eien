@@ -6,8 +6,8 @@ require "eien/deploy/apply_task"
 module Eien
   module CLI
     class Deploy < CLI
-      class_option :context, aliases: %i[c]
-      class_option :app, aliases: %i[a]
+      class_option :context, aliases: [:c]
+      class_option :app, aliases: [:a]
 
       desc "generate", "generates app resources and prints them to terimal"
 
@@ -21,7 +21,7 @@ module Eien
 
           resources = ::Eien::Deploy::GenerateTask.new(
             context,
-            app
+            app,
           ).run!
           puts resources
             .map(&:to_h)
@@ -43,7 +43,7 @@ module Eien
 
           ::Eien::Deploy::ApplyTask.new(
             context,
-            app
+            app,
           ).run!
         end
       end

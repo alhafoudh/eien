@@ -31,14 +31,14 @@ module Eien
       def require_context!(context)
         require_option!(
           context,
-          "#{colorize_error("No context selected.")}\n\nInitialize Eien using #{colorize_command("eien init CONTEXT")} or context using #{colorize_command("-c CONTEXT")} argument."
+          "#{colorize_error("No context selected.")}\n\nInitialize Eien using #{colorize_command("eien init CONTEXT")} or context using #{colorize_command("-c CONTEXT")} argument.",
         )
       end
 
       def require_app!(app)
         require_option!(
           app,
-          "#{colorize_error("No app selected.")}\n\nSelect app using #{colorize_command("eien apps select APP")} or supply app name using #{colorize_command("-a APP")} argument."
+          "#{colorize_error("No app selected.")}\n\nSelect app using #{colorize_command("eien apps select APP")} or supply app name using #{colorize_command("-a APP")} argument.",
         )
       end
 

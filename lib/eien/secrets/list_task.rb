@@ -27,14 +27,14 @@ module Eien
         table = TTY::Table.new(
           [
             colorize("KEY").yellow,
-            colorize("VALUE").yellow
+            colorize("VALUE").yellow,
           ],
           key_pairs.map do |key, value|
             [
               key,
-              Base64.decode64(value)
+              Base64.decode64(value),
             ]
-          end
+          end,
         )
 
         output = table.render(:basic)

@@ -3,7 +3,7 @@
 module Eien
   module Domains
     class UpdateTask < Task
-      ALLOWED_ATTRIBUTES = %i[enabled name].freeze
+      ALLOWED_ATTRIBUTES = [:enabled, :name].freeze
 
       attr_reader :app, :domain, :attributes
 

@@ -1,25 +1,5 @@
-AllCops:
-  TargetRubyVersion: 2.6
+inherit_gem:
+  rubocop-shopify: rubocop.yml
 
-Style/StringLiterals:
-  Enabled: true
-  EnforcedStyle: double_quotes
-
-Style/StringLiteralsInInterpolation:
-  Enabled: true
-  EnforcedStyle: double_quotes
-
-Layout/LineLength:
-  Max: 120
-
-Style/Documentation:
-  Enabled: false
-
-Layout/CaseIndentation:
-  Enabled: false
-
-Layout/EndAlignment:
-  Enabled: false
-
-Layout/FirstArrayElementIndentation:
-  Enabled: false
+Style/MethodCallWithArgsParentheses:
+   Enabled: false

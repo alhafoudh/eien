@@ -30,12 +30,12 @@ module Eien
               name: secret_name,
               namespace: target_namespace,
               labels: {
-                "#{::Eien::LABEL_PREFIX}/app": app_name
-              }
+                "#{::Eien::LABEL_PREFIX}/app": app_name,
+              },
             },
             type: "Opaque",
             data: {
-            }
+            },
           )
           client.create_secret(new_secret)
         end

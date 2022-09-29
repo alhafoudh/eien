@@ -21,7 +21,7 @@ module Eien
     def save!
       config = {
         context: context,
-        app: app
+        app: app,
       }.compact.deep_stringify_keys
 
       FileUtils.mkdir_p(config_dir)

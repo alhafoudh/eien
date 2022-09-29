@@ -30,10 +30,10 @@ module Eien
             "#{status.replicas} desired",
             "#{status.updatedReplicas} updated",
             "#{status.readyReplicas} ready",
-            "#{status.availableReplicas} available"
-          ].join("\n")],
+            "#{status.availableReplicas} available",
+          ].join("\n"),],
           ["", ""],
-          ["condition", condition_message]
+          ["condition", condition_message],
         ]
         TTY::Table.new(rows).render(:unicode, multiline: true, padding: [0, 1])
       end
