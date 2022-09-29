@@ -42,7 +42,8 @@ module Eien
       desc "console", "start interactive console"
 
       def console
-        binding.irb
+        require "irb"
+        IRB.start
       end
 
       desc "apps", "manage apps"

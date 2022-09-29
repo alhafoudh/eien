@@ -14,8 +14,6 @@ module Eien
       def render
         created_time_ago = time_ago_in_words(created_at, include_seconds: true)
 
-        status = service.status
-
         ports_message = service.spec.ports.each_with_object([]) do |port, lines|
           lines << "#{port.nodePort} -> #{port.port}/#{port.name} -> #{port.targetPort}"
         end.join("\n")

@@ -26,7 +26,8 @@ module Eien
 
           temp_file.close
 
-          deploy_options = Krane::CLI::DeployCommand::OPTIONS.each_with_object(HashWithIndifferentAccess.new) do |(key, option), options|
+          deploy_options = Krane::CLI::DeployCommand::OPTIONS
+            .each_with_object(HashWithIndifferentAccess.new) do |(key, option), options|
             options[key] = option[:default]
           end
 

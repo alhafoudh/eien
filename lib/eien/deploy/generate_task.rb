@@ -15,7 +15,6 @@ module Eien
         client = kubeclient_builder.build_eien_kubeclient(context)
         v1_client = kubeclient_builder.build_v1_kubeclient(context)
         target_namespace = the_app.spec.namespace
-        app_name = the_app.metadata.name
 
         processes = client.get_processes(namespace: target_namespace)
 
@@ -33,19 +32,21 @@ module Eien
         processes.each_with_object([]) do |process, resources|
           next unless process.spec.enabled
 
-          process_name = process.metadata.name
-
-          resources << generate_deployment(app_name, process, process_name, target_namespace, config, secret)
+          resources << generate_deployment(the_app, process, config, secret)
 
           next unless process.spec.ports.to_h.any?
 
-          resources << generate_service(app_name, process, process_name, target_namespace)
+          resources << generate_service(the_app, process)
         end
       end
 
       private
 
-      def generate_deployment(app_name, process, process_name, target_namespace, config_map, secret)
+      def generate_deployment(app, process, config_map, secret)
+        app_name = app.metadata.name
+        target_namespace = app.spec.namespace
+        process_name = process.metadata.name
+
         Kubeclient::Resource.new(
           apiVersion: "apps/v1",
           kind: "Deployment",
@@ -95,7 +96,11 @@ module Eien
         )
       end
 
-      def generate_service(app_name, process, process_name, target_namespace)
+      def generate_service(app, process)
+        app_name = app.metadata.name
+        target_namespace = app.spec.namespace
+        process_name = process.metadata.name
+
         Kubeclient::Resource.new(
           apiVersion: "v1",
           kind: "Service",

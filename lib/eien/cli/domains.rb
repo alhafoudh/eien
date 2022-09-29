@@ -86,7 +86,8 @@ module Eien
           require_app!(app)
 
           default_attributes = { enabled: true }
-          attributes = default_attributes.merge(options.slice(*::Eien::Domains::UpdateTask::ALLOWED_ATTRIBUTES.map(&:to_s)).symbolize_keys)
+          attributes = default_attributes
+            .merge(options.slice(*::Eien::Domains::UpdateTask::ALLOWED_ATTRIBUTES.map(&:to_s)).symbolize_keys)
 
           ::Eien::Domains::CreateTask.new(
             context,
