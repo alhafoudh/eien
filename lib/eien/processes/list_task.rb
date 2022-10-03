@@ -36,7 +36,7 @@ module Eien
               process.spec.replicas,
               summarize_command(process.spec.command),
               summarize_ports(process.spec.ports.to_h),
-              time_ago_in_words(Time.parse(process.metadata.creationTimestamp), include_seconds: true),
+              summarize_age(Time.parse(process.metadata.creationTimestamp)),
             ]
           end,
         )

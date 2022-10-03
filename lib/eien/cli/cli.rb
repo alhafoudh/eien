@@ -3,7 +3,6 @@
 require "thor"
 require "tty-table"
 require "colorized_string"
-require "action_view/helpers/date_helper"
 
 module Eien
   module CLI

@@ -32,7 +32,7 @@ module Eien
               route.spec.path,
               route.spec.process,
               route.spec.port,
-              time_ago_in_words(Time.parse(route.metadata.creationTimestamp), include_seconds: true),
+              summarize_age(Time.parse(route.metadata.creationTimestamp)),
             ]
           end,
         )

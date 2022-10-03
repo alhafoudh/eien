@@ -2,7 +2,7 @@
 
 module Eien
   class Task
-    include DOTIW::Methods
+    include Helpers::TimeHelpers
 
     attr_reader :context, :namespace, :task_config
 

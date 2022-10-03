@@ -3,7 +3,7 @@
 module Eien
   module Renderers
     class Renderer
-      include DOTIW::Methods
+      include Helpers::TimeHelpers
 
       def render
       end

@@ -26,7 +26,7 @@ module Eien
               domain.metadata.name,
               summarize_enabled(domain.spec.enabled),
               domain.spec.domain,
-              time_ago_in_words(Time.parse(domain.metadata.creationTimestamp), include_seconds: true),
+              summarize_age(Time.parse(domain.metadata.creationTimestamp)),
             ]
           end,
         )

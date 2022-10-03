@@ -11,19 +11,17 @@ module Eien
       end
 
       def render
-        created_time_ago = time_ago_in_words(created_at, include_seconds: true)
-
         status = deployment.status
 
         condition_message = status.conditions.map do |condition|
-          condition_update_time_ago = time_ago_in_words(Time.parse(condition.lastTransitionTime), include_seconds: true)
+          condition_update_time_ago = summarize_age(Time.parse(condition.lastTransitionTime))
           "#{colorize_condition_type(condition.type)}\n#{condition.message}\n#{condition_update_time_ago} ago\n"
         end.join("\n")
 
         rows = [
           ["name", ColorizedString.new(name).light_magenta],
           ["", ""],
-          ["created", "#{created_time_ago} ago"],
+          ["created", "#{summarize_age(created_at)} ago"],
           ["", ""],
           ["replicas", [
             "#{status.replicas} desired",

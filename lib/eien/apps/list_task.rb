@@ -16,7 +16,7 @@ module Eien
             [
               app.metadata.name,
               app.spec.namespace,
-              time_ago_in_words(Time.parse(app.metadata.creationTimestamp), include_seconds: true),
+              summarize_age(Time.parse(app.metadata.creationTimestamp)),
             ]
           end,
         )

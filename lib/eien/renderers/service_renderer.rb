@@ -11,8 +11,6 @@ module Eien
       end
 
       def render
-        created_time_ago = time_ago_in_words(created_at, include_seconds: true)
-
         ports_message = service.spec.ports.each_with_object([]) do |port, lines|
           lines << "#{port.nodePort} -> #{port.port}/#{port.name} -> #{port.targetPort}"
         end.join("\n")
@@ -20,7 +18,7 @@ module Eien
         rows = [
           ["name", ColorizedString.new(name).light_magenta],
           ["", ""],
-          ["created", "#{created_time_ago} ago"],
+          ["created", "#{summarize_age(created_at)} ago"],
           ["", ""],
           ["cluster IP", service.spec.clusterIP],
           ["", ""],
