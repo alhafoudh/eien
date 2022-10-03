@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "fileutils"
-
 module Eien
   class LocalConfig
     attr_accessor :context, :app

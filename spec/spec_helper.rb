@@ -9,7 +9,13 @@ if ENV["COVERAGE"]
   end
 end
 
+require "fakefs/spec_helpers"
+
 require "eien"
+
+if ENV["COVERAGE"]
+  Zeitwerk::Loader.eager_load_all
+end
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

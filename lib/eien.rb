@@ -8,6 +8,7 @@ loader.inflector.inflect(
 )
 loader.setup
 
+require "fileutils"
 require "active_support/core_ext/module/delegation"
 require "active_support/hash_with_indifferent_access"
 require "krane"

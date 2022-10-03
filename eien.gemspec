@@ -61,4 +61,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubocop-rspec", "~> 2.13"
   spec.add_development_dependency "rubocop-shopify", "~> 1.0.5"
   spec.add_development_dependency "simplecov", "~> 0.21.2"
+  spec.add_development_dependency "fakefs", "~> 1.8"
 end
