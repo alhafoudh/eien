@@ -31,7 +31,7 @@ module Eien
     private
 
     def config_dir
-      File.join(Eien.root, ".eien")
+      File.join(Dir.pwd, ".eien")
     end
 
     def config_path
