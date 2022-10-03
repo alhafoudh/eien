@@ -17,6 +17,26 @@ if ENV["COVERAGE"]
   Zeitwerk::Loader.eager_load_all
 end
 
+require 'stringio'
+
+class StringIO
+  def ioctl(*)
+    0
+  end
+end
+
+Object.send(:remove_const, :ColorizedString)
+
+class ColorizedString < String
+  def respond_to_missing?
+    true
+  end
+
+  def method_missing(symbol, *args)
+    to_s
+  end
+end
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
