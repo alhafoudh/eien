@@ -55,8 +55,7 @@ RSpec.describe Eien do
     kubeclient_stub = instance_double(Kubeclient::Client)
     expect_any_instance_of(Krane::KubeclientBuilder).to receive(:build_kubeclient).with(api_version: "v1",
       context: context,
-      endpoint_path: "/apis/eien.freevision.sk",
-    ).and_return(kubeclient_stub)
+      endpoint_path: "/apis/eien.freevision.sk",).and_return(kubeclient_stub)
 
     expect(Eien.build_eien_kubeclient(context)).to eq kubeclient_stub
   end
@@ -78,16 +77,19 @@ RSpec.describe Eien do
       double(Kubeclient::Client)
     end
 
-    it "should return app resource when it exists" do
+    before(:each) do
       expect(Eien).to receive(:build_eien_kubeclient).with(cntxt).and_return(kubeclient)
+    end
+
+    it "should return app resource when it exists" do
       expect(kubeclient).to receive(:get_app).with(app_name).and_return(the_app)
 
       expect(Eien.app_from_name(cntxt, app_name)).to eq the_app
     end
 
     it "should raise exception if app does not exist" do
-      expect(Eien).to receive(:build_eien_kubeclient).with(cntxt).and_return(kubeclient)
-      expect(kubeclient).to receive(:get_app).with(app_name).and_raise(Kubeclient::ResourceNotFoundError.new(404, double, double))
+      expect(kubeclient).to receive(:get_app).with(app_name).and_raise(Kubeclient::ResourceNotFoundError.new(404,
+double, double))
 
       expect do
         Eien.app_from_name(cntxt, app_name)
