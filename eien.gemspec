@@ -57,7 +57,6 @@ Gem::Specification.new do |spec|
   # Debugging and analysis
   spec.add_development_dependency "pry", "~> 0.14.1"
   spec.add_development_dependency "rspec", "~> 3.11"
-  spec.add_development_dependency "rubocop", "~> 0.89.1"
   spec.add_development_dependency "rubocop", "~> 1.36"
   spec.add_development_dependency "rubocop-rspec", "~> 2.13"
   spec.add_development_dependency "rubocop-shopify", "~> 1.0.5"
