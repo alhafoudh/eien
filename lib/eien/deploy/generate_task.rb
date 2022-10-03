@@ -102,7 +102,7 @@ module Eien
                 }
               end,
             },
-          )
+          ),
         ]
       end
 

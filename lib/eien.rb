@@ -1,22 +1,24 @@
 # frozen_string_literal: true
 
+require "zeitwerk"
+loader = Zeitwerk::Loader.for_gem
+loader.ignore("#{__dir__}/eien/oj.rb")
+loader.inflector.inflect(
+  "cli" => "CLI",
+)
+loader.setup
+
 require "active_support/core_ext/module/delegation"
 require "active_support/hash_with_indifferent_access"
-require "krane/formatted_logger"
+require "krane"
+require "krane/cli/global_deploy_command"
+require "krane/cli/deploy_command"
 
-require "eien/version"
 require "eien/oj"
-require "eien/local_config"
-require "eien/task_config"
-require "eien/kubeclient_builder"
-require "eien/errors"
-require "eien/task"
 
 module Eien
   LABEL_PREFIX = "eien.freevision.sk"
   CRD_OWNER_SELECTOR_VALUE = "eien.freevision.sk"
-
-  class Error < StandardError; end
 
   def self.root
     File.expand_path(File.join(__dir__, ".."))
@@ -54,7 +56,7 @@ module Eien
     kubeclient = build_eien_kubeclient(context)
     kubeclient.get_app(name)
   rescue Kubeclient::ResourceNotFoundError
-    raise UserInputError, "App #{name} does not exist."
+    raise Errors::UserInputError, "App #{name} does not exist."
   end
 
   def self.secret_name(name)

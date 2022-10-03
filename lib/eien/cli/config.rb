@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require "eien/config/list_task"
-require "eien/config/update_task"
-require "eien/config/export_task"
-
 module Eien
   module CLI
     class Config < CLI

@@ -3,8 +3,6 @@
 module Eien
   module Apps
     class ListTask < Task
-      include ActionView::Helpers::DateHelper
-
       def run!
         client = kubeclient_builder.build_eien_kubeclient(context)
         apps = client.get_apps

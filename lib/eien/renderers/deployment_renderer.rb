@@ -2,13 +2,12 @@
 
 module Eien
   module Renderers
-    class DeploymentRenderer
-      include ActionView::Helpers::DateHelper
-
+    class DeploymentRenderer < Renderer
       attr_reader :deployment
 
       def initialize(deployment)
         @deployment = deployment
+        super()
       end
 
       def render

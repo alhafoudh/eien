@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "eien/deploy/generate_task"
-
 module Eien
   module Deploy
     class ApplyTask < Task

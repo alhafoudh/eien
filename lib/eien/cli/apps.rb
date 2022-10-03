@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-require "eien/apps/list_task"
-require "eien/apps/create_task"
-require "eien/apps/select_task"
-require "eien/apps/delete_task"
-require "eien/apps/status_task"
-
 module Eien
   module CLI
     class Apps < CLI

@@ -3,11 +3,7 @@
 require "thor"
 require "tty-table"
 require "colorized_string"
-require "action_view"
-require "action_view/helpers"
-require "tty-prompt"
-
-require "eien"
+require "action_view/helpers/date_helper"
 
 module Eien
   module CLI
@@ -20,7 +16,7 @@ module Eien
 
       def rescue_and_exit
         yield
-      rescue ::Eien::UserInputError => e
+      rescue ::Eien::Errors::UserInputError => e
         warn(colorize_error(e.message))
         exit(1)
       rescue Krane::KubeclientBuilder::ContextMissingError => e
@@ -62,6 +58,8 @@ module Eien
       end
 
       def confirm!(message, value)
+        require "tty-prompt"
+
         instructions = "To confirm, please type '#{value}'"
         prompt = TTY::Prompt.new
         result = prompt.ask("#{message} #{instructions}:") do |question|

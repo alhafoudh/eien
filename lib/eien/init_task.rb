@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "krane/cli/krane"
-
 module Eien
   class InitTask < Task
     def run!

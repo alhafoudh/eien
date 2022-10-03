@@ -2,13 +2,12 @@
 
 module Eien
   module Renderers
-    class ServiceRenderer
-      include ActionView::Helpers::DateHelper
-
+    class ServiceRenderer < Renderer
       attr_reader :service
 
       def initialize(service)
         @service = service
+        super()
       end
 
       def render

@@ -3,8 +3,6 @@
 module Eien
   module Apps
     class CreateTask < Task
-      include ActionView::Helpers::DateHelper
-
       attr_reader :name, :spec_namespace
 
       def initialize(context, name, namespace)

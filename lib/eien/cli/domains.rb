@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-require "eien/domains/list_task"
-require "eien/domains/update_task"
-require "eien/domains/create_task"
-require "eien/domains/delete_task"
-
 module Eien
   module CLI
     class Domains < CLI

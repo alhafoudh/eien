@@ -40,11 +40,12 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubocop-shopify", "~> 2.10"
 
   # Common
-  spec.add_dependency "actionview", "~> 7.0"
   spec.add_dependency "activesupport", "~> 7.0"
+  spec.add_dependency "dotiw", "~> 5.3"
   spec.add_dependency "httplog", "~> 1.6"
   spec.add_dependency "oj", "~> 3.13"
   spec.add_dependency "thor", "~> 1.2"
+  spec.add_dependency "zeitwerk", "~> 2.6"
 
   # Kubernetes
   spec.add_dependency "krane", "~> 2.4"

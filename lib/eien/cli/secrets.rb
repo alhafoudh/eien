@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require "eien/secrets/list_task"
-require "eien/secrets/update_task"
-require "eien/secrets/export_task"
-
 module Eien
   module CLI
     class Secrets < CLI

@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
-require "eien/renderers/deployment_renderer"
-require "eien/renderers/service_renderer"
-
 module Eien
   module Apps
     class StatusTask < Task
-      include ActionView::Helpers::DateHelper
-
       attr_reader :name
 
       def initialize(context, name)

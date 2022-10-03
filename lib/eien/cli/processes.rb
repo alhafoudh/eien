@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-require "eien/processes/list_task"
-require "eien/processes/update_task"
-require "eien/processes/create_task"
-require "eien/processes/delete_task"
-
 module Eien
   module CLI
     class Processes < CLI

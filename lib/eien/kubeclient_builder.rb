@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "krane"
-
 module Eien
   class KubeclientBuilder < Krane::KubeclientBuilder
     EIEN_ENDPOINT_PATH = "eien.freevision.sk"

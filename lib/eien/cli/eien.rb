@@ -2,21 +2,9 @@
 
 require "thor"
 require "colorized_string"
-require "action_view"
-require "action_view/helpers"
 require "irb"
 
 require "eien"
-require "eien/init_task"
-
-require "eien/cli/cli"
-require "eien/cli/apps"
-require "eien/cli/processes"
-require "eien/cli/config"
-require "eien/cli/secrets"
-require "eien/cli/domains"
-require "eien/cli/routes"
-require "eien/cli/deploy"
 
 module Eien
   module CLI

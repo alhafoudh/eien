@@ -3,8 +3,6 @@
 module Eien
   module Processes
     class ListTask < Task
-      include ActionView::Helpers::DateHelper
-
       attr_reader :app
 
       def initialize(context, app)

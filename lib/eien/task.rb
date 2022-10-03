@@ -2,6 +2,8 @@
 
 module Eien
   class Task
+    include DOTIW::Methods
+
     attr_reader :context, :namespace, :task_config
 
     delegate :logger, to: :task_config
@@ -13,7 +15,8 @@ module Eien
       @task_config = TaskConfig.new(context, namespace)
     end
 
-    def run!; end
+    def run!
+    end
 
     private
 

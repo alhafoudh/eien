@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "eien/deploy/generate_task"
-require "eien/deploy/apply_task"
-
 module Eien
   module CLI
     class Deploy < CLI

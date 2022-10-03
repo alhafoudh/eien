@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-require "eien/routes/list_task"
-require "eien/routes/update_task"
-require "eien/routes/create_task"
-require "eien/routes/delete_task"
-
 module Eien
   module CLI
     class Routes < CLI
