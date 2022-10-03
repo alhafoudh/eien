@@ -36,8 +36,6 @@ Gem::Specification.new do |spec|
   # Basics
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake", "~> 13.0"
-  spec.add_development_dependency "rubocop-rspec", "~> 2.13"
-  spec.add_development_dependency "rubocop-shopify", "~> 2.10"
 
   # Common
   spec.add_dependency "activesupport", "~> 7.0"
@@ -55,4 +53,13 @@ Gem::Specification.new do |spec|
   spec.add_dependency "colorize", "~> 0.8.0"
   spec.add_dependency "tty-prompt", "~> 0.23.1"
   spec.add_dependency "tty-table", "~> 0.12.0"
+
+  # Debugging and analysis
+  spec.add_development_dependency "pry", "~> 0.14.1"
+  spec.add_development_dependency "rspec", "~> 3.11"
+  spec.add_development_dependency "rubocop", "~> 0.89.1"
+  spec.add_development_dependency "rubocop", "~> 1.36"
+  spec.add_development_dependency "rubocop-rspec", "~> 2.13"
+  spec.add_development_dependency "rubocop-shopify", "~> 1.0.5"
+  spec.add_development_dependency "simplecov", "~> 0.21.2"
 end
