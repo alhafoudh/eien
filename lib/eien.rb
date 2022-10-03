@@ -29,6 +29,10 @@ module Eien
     File.join(root, "crds")
   end
 
+  def self.clear_config!
+    @config = nil
+  end
+
   def self.config
     @config ||= LocalConfig.build
   end
