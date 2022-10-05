@@ -1,14 +1,7 @@
 name: Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      release_tag:
-        description: 'Release tag'
-        required: true
-        type: string
-  release:
-    published:
+  release: [published]
 
 jobs:
   build-and-publish:
