@@ -2,10 +2,7 @@ name: Release
 
 on:
   release:
-    types:
-      - published
-      - released
-      - created
+    types: [published]
 
 jobs:
   build-and-publish:
