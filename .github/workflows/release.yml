@@ -1,38 +1,12 @@
-name: Main
+name: Release
 
-on: [push]
+on:
+  release:
+    types: [published]
 
 jobs:
-  ruby-specs:
+  build-and-publish:
     runs-on: ubuntu-latest
-
-    name: "Specs - Ruby ${{ matrix.ruby }}"
-    strategy:
-      fail-fast: false
-      matrix:
-        ruby:
-          - '3.1.2'
-          - '3.0.4'
-          - '2.7.6'
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Ruby ${{ matrix.ruby }}
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
-
-      - name: Run specs
-        run: |
-          bin/rspec
-
-  build-and-publish-rubygem:
-    if: startsWith(github.event.ref, 'refs/tags/v')
-    runs-on: ubuntu-latest
-    needs:
-      - ruby-specs
     name: Build and Publish Rubygem
     permissions:
       contents: read

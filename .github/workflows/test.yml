@@ -1,0 +1,29 @@
+name: Test
+
+on: [push]
+
+jobs:
+  ruby-specs:
+    runs-on: ubuntu-latest
+
+    name: "Specs - Ruby ${{ matrix.ruby }}"
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby:
+          - '3.1.2'
+          - '3.0.4'
+          - '2.7.6'
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - name: Run specs
+        run: |
+          bin/rspec
