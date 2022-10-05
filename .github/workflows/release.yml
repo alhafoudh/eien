@@ -1,7 +1,13 @@
 name: Release
 
 on:
-  release:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag'
+        required: true
+        type: string
+  release: [published]
 
 jobs:
   build-and-publish:
@@ -24,7 +30,7 @@ jobs:
 
       - name: "Set new rubygem version"
         run: |
-          sed -i 's/VERSION.*/VERSION = "${{ github.event.create.ref }}"/' lib/eien/version.rb
+          sed -i 's/VERSION.*/VERSION = "${{ github.event.create.ref }}${{ inputs.tag }}"/' lib/eien/version.rb
           git add lib/eien/version.rb
           git diff --cached
 
