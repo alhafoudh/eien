@@ -51,7 +51,7 @@ This will deploy `eien` [Kubernetes Custom Resource Definitions](https://kuberne
 3. Create first process (like Procfile process type)
 
     ```
-    $ eien ps create web --enabled --image ealen/echo-server:latest --replicas 3 --ports http:80
+    $ eien ps create web --image ealen/echo-server:latest --replicas 3 --ports http:80
     ```
 
 4. Create domain
@@ -64,7 +64,7 @@ This will deploy `eien` [Kubernetes Custom Resource Definitions](https://kuberne
 5. Create route to route HTTP request from domain to process port
 
     ```
-    $ eien route create root --enabled --domains myapp.x.x.x.x.nip.io --path / --process web --port http
+    $ eien route create root --domains myapp.x.x.x.x.nip.io --path / --process web --port http
     ```
     
 

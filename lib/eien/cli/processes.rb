@@ -85,9 +85,8 @@ module Eien
           require_context!(context)
           require_app!(app)
 
-          attributes = options.slice(*::Eien::Processes::UpdateTask::ALLOWED_ATTRIBUTES.map(&:to_s)).symbolize_keys
-          attributes[:config] = "default" unless options[:config]
-          attributes[:secret] = "default" unless options[:secret]
+          default_attributes = { enabled: true, config: "default", secret: "default" }
+          attributes = default_attributes.merge(options.slice(*::Eien::Processes::UpdateTask::ALLOWED_ATTRIBUTES.map(&:to_s)).symbolize_keys)
 
           ::Eien::Processes::CreateTask.new(
             context,
