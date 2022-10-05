@@ -1,7 +1,4 @@
-# eien [![Ruby](https://github.com/alhafoudh/eien/actions/workflows/main.yml/badge.svg?branch=develop)](https://github.com/alhafoudh/eien/actions/workflows/main.yml)
-
-[![Gem Version](https://img.shields.io/gem/v/eien.svg?style=for-the-badge)](https://rubygems.org/gems/eien)
-[![Build Status](https://img.shields.io/github/workflow/status/alhafoudh/eien/Ruby?event=push&style=for-the-badge)](https://github.com/alhafoudh/eien/actions?query=event%3Apush)
+# eien [![Gem Version](https://img.shields.io/gem/v/eien.svg)](https://rubygems.org/gems/eien) [![Build Status](https://img.shields.io/github/workflow/status/alhafoudh/eien/Ruby?event=push)](https://github.com/alhafoudh/eien/actions?query=event%3Apush)
 
 `eien` is a command line tool that manages and deploys apps to any Kubernetes cluster and abstracts all kubernetes
 concepts from you.
