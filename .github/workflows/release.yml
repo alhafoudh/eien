@@ -1,10 +1,8 @@
 name: Release
 
-#on:
-#  release:
-#    types: [published]
-
-on: [push]
+on:
+  release:
+    types: [published]
 
 jobs:
   build-and-publish:
@@ -27,8 +25,7 @@ jobs:
 
       - name: "Set new rubygem version"
         run: |
-          sed 's/VERSION.*/VERSION = "${{ github.event.release.tag_name }}"/' lib/eien/version.rb
-          cat lib/eien/version.rb
+          sed -i 's/VERSION.*/VERSION = "${{ github.event.release.tag_name }}"/' lib/eien/version.rb
           git add lib/eien/version.rb
           git diff --cached
 
