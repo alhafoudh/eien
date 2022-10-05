@@ -43,34 +43,43 @@ This will deploy `eien` [Kubernetes Custom Resource Definitions](https://kuberne
 
 2. Create `eien` app and select it to be used ever time when deploying from current diretory
 
-
+    ```
     $ eien apps create myapp
     $ eien apps select myapp
+    ```    
 
 3. Create first process (like Procfile process type)
 
-    
+    ```
     $ eien ps create web --enabled --image ealen/echo-server:latest --replicas 3 --ports http:80
+    ```
 
 4. Create domain
 
-
+    ```
     $ eien domain create myapp.x.x.x.x.nip.io
+    ```
+    
 
 5. Create route to route HTTP request from domain to process port
 
-
+    ```
     $ eien route create root --enabled --domains myapp.x.x.x.x.nip.io --path / --process web --port http
+    ```
+    
 
 6. Preview what Kubernetes resources would be deployed
 
-
+    ```
     $ eien deploy generate
+    ```
+    
 
 7. Finally, deploy the app
 
-
+    ```
     $ eien deploy apply
+    ```
 
 ## Contributing
 
