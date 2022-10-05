@@ -85,8 +85,12 @@ module Eien
           require_context!(context)
           require_app!(app)
 
-          default_attributes = { enabled: true, config: "default", secret: "default" }
-          attributes = default_attributes.merge(options.slice(*::Eien::Processes::UpdateTask::ALLOWED_ATTRIBUTES.map(&:to_s)).symbolize_keys)
+          attributes = require_options(::Eien::Processes::UpdateTask::ALLOWED_ATTRIBUTES, {
+            enabled: true,
+            config: "default",
+            secret: "default",
+            ports: {},
+          })
 
           ::Eien::Processes::CreateTask.new(
             context,
@@ -109,10 +113,8 @@ module Eien
           require_context!(context)
           require_app!(app)
 
-          attributes = options.slice(*::Eien::Processes::UpdateTask::ALLOWED_ATTRIBUTES.map(&:to_s)).symbolize_keys
+          attributes = require_options(::Eien::Processes::UpdateTask::ALLOWED_ATTRIBUTES)
           attributes[:ports] = {} if options[:"no-ports"]
-          attributes[:config] = "default" unless options[:config]
-          attributes[:secret] = "default" unless options[:secret]
 
           ::Eien::Processes::UpdateTask.new(
             context,

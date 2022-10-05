@@ -48,6 +48,14 @@ module Eien
         exit(1)
       end
 
+      def require_options(allowed_options, default_options = {})
+        symbolized_allowed_options = allowed_options.map(&:to_sym)
+        symbolized_default_options = default_options.symbolize_keys
+        symbolized_options = options.to_h.symbolize_keys
+
+        symbolized_default_options.merge(symbolized_options.slice(*symbolized_allowed_options))
+      end
+
       def colorize_error(error)
         ColorizedString.new(error).light_red
       end

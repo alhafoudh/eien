@@ -80,9 +80,9 @@ module Eien
           require_context!(context)
           require_app!(app)
 
-          default_attributes = { enabled: true }
-          attributes = default_attributes
-            .merge(options.slice(*::Eien::Domains::UpdateTask::ALLOWED_ATTRIBUTES.map(&:to_s)).symbolize_keys)
+          attributes = require_options(::Eien::Domains::UpdateTask::ALLOWED_ATTRIBUTES, {
+            enabled: true,
+          })
 
           ::Eien::Domains::CreateTask.new(
             context,
@@ -92,29 +92,6 @@ module Eien
           ).run!
         end
       end
-
-      # desc "update DOMAIN", "updates domain"
-      #
-      # domain_options
-      #
-      # def update(domain)
-      #   rescue_and_exit do
-      #     context = ::Eien.context_or_default(options[:context])
-      #     app = ::Eien.app_or_default(options[:app])
-      #
-      #     require_context!(context)
-      #     require_app!(app)
-      #
-      #     attributes = options.slice(*::Eien::Domains::UpdateTask::ALLOWED_ATTRIBUTES.map(&:to_s)).symbolize_keys
-      #
-      #     ::Eien::Domains::UpdateTask.new(
-      #       context,
-      #       app,
-      #       domain,
-      #       **attributes
-      #     ).run!
-      #   end
-      # end
 
       desc "delete DOMAIN", "deletes domain"
 

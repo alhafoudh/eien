@@ -82,8 +82,9 @@ module Eien
           require_context!(context)
           require_app!(app)
 
-          default_attributes = { enabled: true }
-          attributes = default_attributes.merge(options.slice(*::Eien::Routes::UpdateTask::ALLOWED_ATTRIBUTES.map(&:to_s)).symbolize_keys)
+          attributes = require_options(::Eien::Routes::UpdateTask::ALLOWED_ATTRIBUTES, {
+            enabled: true,
+          })
 
           ::Eien::Routes::CreateTask.new(
             context,
@@ -106,7 +107,7 @@ module Eien
           require_context!(context)
           require_app!(app)
 
-          attributes = options.slice(*::Eien::Routes::UpdateTask::ALLOWED_ATTRIBUTES.map(&:to_s)).symbolize_keys
+          attributes = require_options(::Eien::Routes::UpdateTask::ALLOWED_ATTRIBUTES)
 
           ::Eien::Routes::UpdateTask.new(
             context,
