@@ -1,4 +1,4 @@
-# eien [![Gem Version](https://img.shields.io/gem/v/eien.svg)](https://rubygems.org/gems/eien) [![Build Status](https://img.shields.io/github/workflow/status/alhafoudh/eien/Ruby?event=push)](https://github.com/alhafoudh/eien/actions?query=event%3Apush)
+# eien [![Gem Version](https://img.shields.io/gem/v/eien.svg)](https://rubygems.org/gems/eien) [![Build Status](https://img.shields.io/github/workflow/status/alhafoudh/eien/Test?event=push)](https://github.com/alhafoudh/eien/actions?query=event%3Apush)
 
 `eien` is a command line tool that manages and deploys apps to any Kubernetes cluster and abstracts all kubernetes
 concepts from you.
@@ -85,7 +85,7 @@ This will deploy `eien` [Kubernetes Custom Resource Definitions](https://kuberne
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/alhafoudh/eien. This project is intended to
 be a safe, welcoming space for collaboration, and contributors are expected to adhere to
-the [code of conduct](https://github.com/alhafoudh/eien/blob/develop/CODE_OF_CONDUCT.md).
+the [code of conduct](https://github.com/alhafoudh/eien/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -94,4 +94,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the Eien project's codebases, issue trackers, chat rooms and mailing lists is expected to follow
-the [code of conduct](https://github.com/alhafoudh/eien/blob/develop/CODE_OF_CONDUCT.md).
+the [code of conduct](https://github.com/alhafoudh/eien/blob/main/CODE_OF_CONDUCT.md).
