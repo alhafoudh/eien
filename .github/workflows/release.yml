@@ -3,6 +3,8 @@ name: Release
 on:
   release:
     types: [published]
+  create:
+    tags:
 
 jobs:
   build-and-publish:
@@ -25,7 +27,7 @@ jobs:
 
       - name: "Set new rubygem version"
         run: |
-          sed -i 's/VERSION.*/VERSION = "${{ github.event.release.tag_name }}"/' lib/eien/version.rb
+          sed -i 's/VERSION.*/VERSION = "${{ github.event.create.ref }}"/' lib/eien/version.rb
           git add lib/eien/version.rb
           git diff --cached
 
