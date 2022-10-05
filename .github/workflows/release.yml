@@ -5,6 +5,7 @@ on:
     types:
       - published
       - released
+      - created
 
 jobs:
   build-and-publish:
