@@ -6,20 +6,20 @@ RSpec.describe Eien do
   end
 
   it ".root" do
-    expect(Eien.root).to eq File.expand_path('.')
+    expect(Eien.root).to eq File.expand_path(".")
   end
 
   it ".crd_dir" do
-    expect(Eien.crd_dir).to eq File.expand_path('./crds')
+    expect(Eien.crd_dir).to eq File.expand_path("./crds")
   end
 
   it ".prepare_krane_options" do
     krane_options = {
       option1: {
-        default: 1
+        default: 1,
       },
       option2: {
-        default: 2
+        default: 2,
       },
     }
     expect(Eien.prepare_krane_options(krane_options)).to eq({
@@ -55,7 +55,7 @@ RSpec.describe Eien do
     kubeclient_stub = instance_double(Kubeclient::Client)
     expect_any_instance_of(Krane::KubeclientBuilder).to receive(:build_kubeclient).with(api_version: "v1",
       context: context,
-      endpoint_path: "/apis/eien.freevision.sk",).and_return(kubeclient_stub)
+      endpoint_path: "/apis/eien.freevision.sk").and_return(kubeclient_stub)
 
     expect(Eien.build_eien_kubeclient(context)).to eq kubeclient_stub
   end
@@ -89,7 +89,7 @@ RSpec.describe Eien do
 
     it "should raise exception if app does not exist" do
       expect(kubeclient).to receive(:get_app).with(app_name).and_raise(Kubeclient::ResourceNotFoundError.new(404,
-double, double))
+        double, double))
 
       expect do
         Eien.app_from_name(cntxt, app_name)

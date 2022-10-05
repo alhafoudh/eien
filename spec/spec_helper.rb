@@ -3,9 +3,9 @@
 require "pry"
 
 if ENV["COVERAGE"]
-  require 'simplecov'
+  require "simplecov"
   SimpleCov.start do
-    add_filter 'spec/'
+    add_filter "spec/"
   end
 end
 
@@ -19,7 +19,7 @@ if ENV["COVERAGE"]
   Zeitwerk::Loader.eager_load_all
 end
 
-require 'stringio'
+require "stringio"
 
 class StringIO
   def ioctl(*)

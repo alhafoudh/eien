@@ -38,7 +38,7 @@ RSpec.describe Eien::Apps::ListTask do
     ])
 
     expect(TTY::Table).to receive(:new).with([
-      "NAME", "NAMESPACE", "AGE"
+      "NAME", "NAMESPACE", "AGE",
     ], [
       include("app1", "app1_namespace"),
       include("app2", "app2_namespace"),
