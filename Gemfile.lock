@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    eien (0.1.0)
+    eien (0.1.1)
       activesupport (~> 7.0)
       colorize (~> 0.8.0)
       dotiw (~> 5.3)
