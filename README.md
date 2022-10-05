@@ -1,10 +1,26 @@
-# eien
+# eien [![Ruby](https://github.com/alhafoudh/eien/actions/workflows/main.yml/badge.svg?branch=develop)](https://github.com/alhafoudh/eien/actions/workflows/main.yml)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/eien`. To experiment with that code, run `bin/console` for an interactive prompt.
+`eien` is a command line tool that manages and deploys apps to any Kubernetes cluster and abstracts all kubernetes
+concepts from you.
 
-TODO: Delete this and the text above, and describe your gem
+📦 Focus of `eien` is to require minimum dependencies inside the Kubernetes cluster and use standard Kubernetes features
+to manage and deploy the app. `eien` tries to follow all best practices for deploying apps in Kubernetes.
+
+⚙️ `eien` has simple commands like you are used to
+from [heroku CLI](https://devcenter.heroku.com/articles/heroku-cli-commands)
+or [dokku CLI](https://dokku.com/docs/deployment/application-management).
+
+🏗 `eien` uses [Krane](https://github.com/Shopify/krane) gem to deploy Kubernetes resources. This allows you to:
+
+- monitor the deploy status and see if the roll out was successfull
+- see debug information if case of failure
+- predeploys certain types of resources to make sure they are available for resources that might consume them (e.g. Deployment)
+
+For more information visit https://github.com/Shopify/krane.
 
 ## Installation
+
+`eien` requires Ruby 2.7 or newer.
 
 Install the gem and add to the application's Gemfile by executing:
 
@@ -14,19 +30,53 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
     $ gem install eien
 
+️⭐️ *Recommendation*: Lock down the version of `eien` gem by adding the gem to `Gemfile` to ensure consistency. If you don't use `bundler` just create `Gemfile` only for `eien` gem version tracking.
+
 ## Usage
 
-TODO: Write usage instructions here
+1. Initialize Kubernetes cluster for `eien`
 
-## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+    $ eien init <kubernetes context>
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+This will deploy `eien` [Kubernetes Custom Resource Definitions](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources) to store app , processes and other definitions. Those are used to generate Kubernetes resources when depoying the apps.
+
+2. Create `eien` app and select it to be used ever time when deploying from current diretory
+
+
+    $ eien apps create myapp
+    $ eien apps select myapp
+
+3. Create first process (like Procfile process type)
+
+    
+    $ eien ps create web --enabled --image ealen/echo-server:latest --replicas 3 --ports http:80
+
+4. Create domain
+
+
+    $ eien domain create myapp.x.x.x.x.nip.io
+
+5. Create route to route HTTP request from domain to process port
+
+
+    $ eien route create root --enabled --domains myapp.x.x.x.x.nip.io --path / --process web --port http
+
+6. Preview what Kubernetes resources would be deployed
+
+
+    $ eien deploy generate
+
+7. Finally, deploy the app
+
+
+    $ eien deploy apply
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/eien. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/eien/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/alhafoudh/eien. This project is intended to
+be a safe, welcoming space for collaboration, and contributors are expected to adhere to
+the [code of conduct](https://github.com/alhafoudh/eien/blob/develop/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -34,4 +84,5 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Eien project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/eien/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Eien project's codebases, issue trackers, chat rooms and mailing lists is expected to follow
+the [code of conduct](https://github.com/alhafoudh/eien/blob/develop/CODE_OF_CONDUCT.md).
