@@ -9,6 +9,10 @@ RSpec.describe Eien::InitTask do
     Eien::InitTask.new(context).run!
   end
 
+  before(:each) do
+    allow_any_instance_of(Krane::FormattedLogger).to receive(:info)
+  end
+
   it "should deploy CRS's with krane" do
     expect(Krane::CLI::GlobalDeployCommand).to receive(:from_options) do |c, arg|
       expect(c).to eq context

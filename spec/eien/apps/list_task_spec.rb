@@ -9,6 +9,10 @@ RSpec.describe Eien::Apps::ListTask do
     Eien::Apps::ListTask.new(context).run!
   end
 
+  before(:each) do
+    allow($stdout).to receive(:puts)
+  end
+
   it "should list apps" do
     kubeclient = double
     expect_any_instance_of(Eien::KubeclientBuilder).to receive(:build_eien_kubeclient).and_return(kubeclient)
