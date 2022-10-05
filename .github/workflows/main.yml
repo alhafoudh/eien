@@ -1,27 +1,32 @@
 name: Ruby
 
-on:
-  push:
-    branches:
-      - master
-
-  pull_request:
+on: [push]
 
 jobs:
-  build:
+  ruby-specs:
     runs-on: ubuntu-latest
-    name: Ruby ${{ matrix.ruby }}
+
+    name: "Specs - Ruby ${{ matrix.ruby }}"
     strategy:
+      fail-fast: false
       matrix:
         ruby:
           - '3.1.2'
+          - '3.0.3' # With k8s 1.23
+          - '3.0.2'
+          - '3.0.1'
+          - '3.0'
+          - '2.7'
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true
-    - name: Run the default task
-      run: bundle exec rake
+      - uses: actions/checkout@v2
+
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - name: Run specs
+        run: |
+          bin/rspec
