@@ -32,7 +32,7 @@ jobs:
 #          bin/rspec
 
   build-and-publish-rubygem:
-    if: startsWith(github.event.ref, 'refs/tags/v')
+#    if: startsWith(github.event.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
 #    needs:
 #      - ruby-specs
