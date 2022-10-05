@@ -13,6 +13,8 @@ require "fakefs/spec_helpers"
 
 require "eien"
 
+require "tty-table"
+
 if ENV["COVERAGE"]
   Zeitwerk::Loader.eager_load_all
 end
