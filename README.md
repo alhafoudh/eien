@@ -7,8 +7,8 @@ concepts from you.
 to manage and deploy the app. `eien` tries to follow all best practices for deploying apps in Kubernetes.
 
 ⚙️ `eien` has simple commands like you are used to
-from [heroku CLI](https://devcenter.heroku.com/articles/heroku-cli-commands)
-or [dokku CLI](https://dokku.com/docs/deployment/application-management).
+from [heroku](https://devcenter.heroku.com/articles/heroku-cli-commands)
+or [dokku](https://dokku.com/docs/deployment/application-management) CLI.
 
 🏗 `eien` uses [Krane](https://github.com/Shopify/krane) gem to deploy Kubernetes resources. This allows you to:
 
