@@ -196,7 +196,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  bundler
+  bundler (~> 2.3)
   eien!
   fakefs (~> 1.8)
   pry (~> 0.14.1)

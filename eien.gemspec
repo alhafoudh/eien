@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.description = spec.summary
   spec.homepage = "https://github.com/alhafoudh/eien"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 2.6.0"
+  spec.required_ruby_version = ">= 2.7"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
@@ -33,10 +33,8 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = '>= 2.7'
-
   # Basics
-  spec.add_development_dependency "bundler"
+  spec.add_development_dependency "bundler", "~> 2.3"
   spec.add_development_dependency "rake", "~> 13.0"
 
   # Common
@@ -57,11 +55,11 @@ Gem::Specification.new do |spec|
   spec.add_dependency "tty-table", "~> 0.12.0"
 
   # Debugging and analysis
+  spec.add_development_dependency "fakefs", "~> 1.8"
   spec.add_development_dependency "pry", "~> 0.14.1"
   spec.add_development_dependency "rspec", "~> 3.11"
   spec.add_development_dependency "rubocop", "~> 1.36"
   spec.add_development_dependency "rubocop-rspec", "~> 2.13"
   spec.add_development_dependency "rubocop-shopify", "~> 1.0.5"
   spec.add_development_dependency "simplecov", "~> 0.21.2"
-  spec.add_development_dependency "fakefs", "~> 1.8"
 end
