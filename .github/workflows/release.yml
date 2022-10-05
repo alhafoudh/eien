@@ -1,11 +1,7 @@
 name: Release
 
 on:
-  push:
   release:
-    types: [published]
-  create:
-    tags:
 
 jobs:
   build-and-publish:
