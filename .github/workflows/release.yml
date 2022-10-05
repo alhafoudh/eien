@@ -1,8 +1,10 @@
 name: Release
 
-on:
-  release:
-    types: [published]
+#on:
+#  release:
+#    types: [published]
+
+on: [push]
 
 jobs:
   build-and-publish:
@@ -23,13 +25,20 @@ jobs:
         with:
           ruby-version: "${{env.RUBY_VERSION}}"
 
-      - name: Publish to RubyGems
+      - name: "Set new rubygem version"
         run: |
-          mkdir -p $HOME/.gem
-          touch $HOME/.gem/credentials
-          chmod 0600 $HOME/.gem/credentials
-          printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
-          gem build *.gemspec
-          gem push *.gem
-        env:
-          GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"
+          sed 's/VERSION.*/VERSION = "${{ github.event.release.tag_name }}"/' lib/eien/version.rb
+          cat lib/eien/version.rb
+          git add lib/eien/version.rb
+          git diff --cached
+
+#      - name: Publish to RubyGems
+#        run: |
+#          mkdir -p $HOME/.gem
+#          touch $HOME/.gem/credentials
+#          chmod 0600 $HOME/.gem/credentials
+#          printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
+#          gem build *.gemspec
+#          gem push *.gem
+#        env:
+#          GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"
