@@ -24,11 +24,15 @@ For more information visit https://github.com/Shopify/krane.
 
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add eien
+```
+$ bundle add eien
+```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install eien
+```
+$ gem install eien
+```
 
 ️⭐️ *Recommendation*: Lock down the version of `eien` gem by adding the gem to `Gemfile` to ensure consistency. If you don't use `bundler` just create `Gemfile` only for `eien` gem version tracking.
 
@@ -36,8 +40,9 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 1. Initialize Kubernetes cluster for `eien`
 
-
+    ```
     $ eien init <kubernetes context>
+    ```
 
 This will deploy `eien` [Kubernetes Custom Resource Definitions](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources) to store app , processes and other definitions. Those are used to generate Kubernetes resources when depoying the apps.
 
