@@ -9,30 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Publish Rubygem
     permissions:
-      contents: write
-      packages: write
+      contents: read
 
     env:
       RUBY_VERSION: 3.1.2
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: main
 
       - name: "Set up Ruby ${{env.RUBY_VERSION}}"
         uses: actions/setup-ruby@v1
         with:
           ruby-version: "${{env.RUBY_VERSION}}"
-
-      - name: "Set new rubygem version"
-        run: |
-          sed -i 's/VERSION.*/VERSION = "${{ github.event.release.tag_name }}"/' lib/eien/version.rb
-
-      - name: "Commit and push"
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "Bump to version ${{ github.event.release.tag_name }}"
 
       - name: Publish to RubyGems
         run: |
