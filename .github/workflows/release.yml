@@ -26,16 +26,19 @@ jobs:
       - name: "Set new rubygem version"
         run: |
           sed -i 's/VERSION.*/VERSION = "${{ github.event.release.tag_name }}"/' lib/eien/version.rb
-          git add lib/eien/version.rb
-          git diff --cached
 
-#      - name: Publish to RubyGems
-#        run: |
-#          mkdir -p $HOME/.gem
-#          touch $HOME/.gem/credentials
-#          chmod 0600 $HOME/.gem/credentials
-#          printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
-#          gem build *.gemspec
-#          gem push *.gem
-#        env:
-#          GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"
+      - name: "Commit and push"
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Bump to version ${{ github.event.release.tag_name }}"
+
+      - name: Publish to RubyGems
+        run: |
+          mkdir -p $HOME/.gem
+          touch $HOME/.gem/credentials
+          chmod 0600 $HOME/.gem/credentials
+          printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
+          gem build *.gemspec
+          gem push *.gem
+        env:
+          GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"
